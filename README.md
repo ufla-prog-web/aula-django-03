@@ -107,6 +107,14 @@ ou
 python3 -m virtualenv --version
 ```
 
+### Abrindo o Visual Studio Code
+
+Abra a IDE Visual Studio Code na pasta aula-django-03.
+
+**Dica:** Abra o arquivo `README.md` e clique em `Open Preview to the Side` para facilitar a construção da aplicação.
+
+**Dica:** Abra um terminal utilizando a IDE clicando em `Terminal` e `New Terminal`. Navegue até a pasta `portal_biblioteca`.
+
 ### Criação do Ambiente Virtual
 
 Navegue até a pasta `aula-djando-03/portal_biblioteca`.
@@ -175,15 +183,19 @@ ou
 export PATH=$PATH:~/.local/bin
 ```
 
-### Abrindo o Visual Studio Code
-
-Abra a IDE Visual Studio Code na pasta aula-django-03.
-
-**Dica:** Abra o arquivo `README.md` e clique em `Open Preview to the Side` para facilitar a construção da aplicação.
-
-**Dica:** Abra um terminal utilizando a IDE clicando em `Terminal` e `New Terminal`. Navegue até a pasta `portal_biblioteca`.
-
 ### Executando o Projeto
+
+Antes de executar o projeto, execute o comando para fazer as migrações:
+
+```bash
+(venv) ... $ python3 manage.py migrate
+```
+
+Em seguida, execute comando abaixo para fazer a cópia dos arquivos estáticos:
+
+```bash
+(venv) ... $ python3 manage.py collectstatic
+```
 
 Inicie a execução do projeto django criado:
 
@@ -193,7 +205,8 @@ Inicie a execução do projeto django criado:
 
 **OBS:** Por padrão, o servidor de desenvolvimento escuta na porta 8000, mas você pode especificar uma porta diferente como argumento opcional, por exemplo, `python3 manage.py runserver 8081`.
 
-Acesse através do navegdor web a página [http://127.0.0.1:8000/](http://127.0.0.1:8000/). Uma página padrão do django deve aparecer.
+Acesse através do navegdor web a página [http://127.0.0.1:8000/](http://127.0.0.1:8000/). 
+A aula anterior avançou até aqui.
 
 ### Criando nosso Primeiro Modelo
 
@@ -274,7 +287,7 @@ Na parte inferior, após os três, `>>>` escreva o seguinte:
 >>> from biblioteca.models import Livro
 ```
 
-Pressione [enter] e escreva isto para ver a tabela Livro vazia:
+Pressione [enter] e escreva o código abaixo para ver a tabela Livro vazia:
 
 ```bash
 >>> Livro.objects.all()
@@ -313,6 +326,9 @@ Para sair do ambiente shell digite:
 quit()
 ```
 
+Você acaba de aprender como criar uma tabela no BD e como inserir informações nessa tabela utilizando o interpretador do Python.
+Existe outras formas de fazer a inserção de informações nessa tabela e veremos isso adiante.
+
 ### Ambiente Administrativo do Django
 
 O Django Admin é uma ferramenta ótima do Django, na verdade é uma interface de usuário CRUD (Criar, Ler, Atualizar, Excluir) para todos os seus modelos!
@@ -333,11 +349,11 @@ from django.urls import include, path
 
 urlpatterns = [
     path('', include('biblioteca.urls')),
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls), # definição da rota do ambiente adminstrativo
 ]
 ```
 
-A lista `urlpatterns[]` recebe solicitações na rota `admin/` e as envia para `admin.site.urls`, que faz parte de um aplicativo integrado que vem com o Django e contém muitas funcionalidades e interfaces de usuário, sendo uma delas a interface de usuário de login.
+**Explicação:** A lista `urlpatterns[]` recebe solicitações na rota `admin/` e as envia para `admin.site.urls`, que faz parte de um aplicativo integrado que vem com o Django e contém muitas funcionalidades e interfaces de usuário, sendo uma delas a interface de usuário de login.
 
 ### Criando um Usuário no Django
 
@@ -374,11 +390,11 @@ Agora reinicie o servidor:
 (venv) ... $ python3 manage.py runserver
 ```
 
-Na janela do navegador, digite na barra de endereço [127.0.0.1:8000/admin/](127.0.0.1:8000/admin/)
+Na janela do navegador, digite na barra de endereço [127.0.0.1:8000/admin/](127.0.0.1:8000/admin/).
 
-Preencha o formulário com o nome de usuário e senha corretos (`admin` e `admin`):
+Preencha o formulário com o nome de usuário e senha corretos (`admin` e `admin`).
 
-Na tela aberta você pode criar, ler, atualizar e excluir grupos e usuários, mas onde está o modelo de Livro?
+Na interface aberta você pode criar, ler, atualizar e excluir grupos e usuários, mas onde está o modelo de Livro?
 
 O modelo Livro está faltando, como deveria estar. Você tem que informar ao Django quais modelos devem estar visíveis na interface administrativa.
 
@@ -412,7 +428,7 @@ Na lista de Livros, vemos "Livro object (1)", "Livro membro (2)" etc., que podem
 Para mudar isso para um formato mais fácil de ler, temos duas opções:
 
 * Alterar a função de representação de string `__str__()` do modelo de Livro.
-* Defina a propriedade `list_details` do modelo de Livro.
+* Definir a propriedade `list_details` do modelo de Livro.
 
 Para alterar utilizando a primeira forma, devemos alterar a função de representação de string `__str__()` do modelo de Livro. Para isso faça o seguinte no arquivo `models.py` dentro da pasta `biblioteca`:
 
@@ -428,7 +444,7 @@ class Livro(models.Model):
         return f"{self.nome} - {self.autor}" 
 ```
 
-Agora volte para o navegador e atualize a barra de endereço [127.0.0.1:8000/admin/](127.0.0.1:8000/admin/)
+Agora volte para o navegador e atualize a barra de endereço [127.0.0.1:8000/admin/](127.0.0.1:8000/admin/).
 
 Para alterar utilizando a segunda forma (RECOMENDADA), devemos definir a propriedade `list_display` do arquivo `admin.py`. Primeiro crie uma classe `LivroAdmin()` e especifique a tupla `list_display`, assim:
 
@@ -442,9 +458,9 @@ class LivroAdmin(admin.ModelAdmin):
 admin.site.register(Livro, LivroAdmin)
 ```
 
-*OBS:* Lembre-se de adicionar LivroAdmin como um argumento no arquivo, como em: `admin.site.register(Livro, LivroAdmin)`.
+**OBS:** Lembre-se de adicionar LivroAdmin como um argumento no arquivo, como em: `admin.site.register(Livro, LivroAdmin)`.
 
-Agora volte para o navegador e atualize a barra de endereço [127.0.0.1:8000/admin/](127.0.0.1:8000/admin/)
+Agora volte para o navegador e atualize a barra de endereço [127.0.0.1:8000/admin/](127.0.0.1:8000/admin/).
 
 ### Adicionando novos Livros
 
@@ -471,9 +487,9 @@ Preencha os campos e clique em `SAVE`:
 
 ### Carregando a Interface Livro com Dados do BD
 
-Até aqui vimos como trabalhar com o Banco de Dados, mas a interface da nossa aplicação (livro) ainda não está fazendo a leitura dos dados do BD.
+Até aqui, vimos como trabalhar com o Banco de Dados, mas a interface da nossa aplicação (livro) ainda não está fazendo a leitura dos dados do BD.
 
-Agora iremos atualizar a interface para puxar/pegar os dados do BD.
+Agora, iremos atualizar a interface para puxar/pegar os dados do BD.
 
 Assim, é necessário atualizar o código `views.py` da pasta `biblioteca`. Devemos remover os dados que estavam inseridos estaticamente nesse arquivo.
 
@@ -492,36 +508,34 @@ def livros(request):         # atualize esta função
     return HttpResponse(template.render(context, request))
 ```
 
-Agora volte para o navegador e atualize a barra de endereço [127.0.0.1:8000/livros](127.0.0.1:8000/livros)
+Agora volte para o navegador e atualize a barra de endereço [127.0.0.1:8000/livros](127.0.0.1:8000/livros).
 
 Repare que os livros listados são somente os livros cadastrados no Banco de Dados.
 
 ### Configuração do Projeto Django em Português
 
-No arquivo `settings.py` (na pasta `biblioteca`), pode-se definir o idioma utilizado pela aplicação django como sendo o português:
+Repare que todo o ambiente administrativo do django está em Inglês, vamos agora, alterar isso para português.
+
+Assim, no arquivo `settings.py` (na pasta `biblioteca`), faça a seguinte alteração:
 
 ```python
+...
 LANGUAGE_CODE = 'pt-BR'
+...
 ```
 
-Agora volte para o navegador e atualize a barra de endereço [127.0.0.1:8000/admin/](127.0.0.1:8000/admin/)
+Agora volte para o navegador e atualize a barra de endereço [127.0.0.1:8000/admin/](127.0.0.1:8000/admin/).
 
 ### Carregando a Interface TCC com Dados do BD
 
 Até aqui criamos apenas uma Tabela no BD que é Livro. Agora iremos criar uma Tabela TCC no Modelo do BD.
 
-Primeiramente, iremos criar uma classe chamada `TCC`. Para isso abra o arquivo `models.py` na pasta `biblioteca` e digite o seguinte conteúdo:
+Primeiramente, iremos criar uma classe chamada `TCC`. Para isso, abra o arquivo `models.py` na pasta `biblioteca` e digite o seguinte conteúdo:
 
 ```python
 from django.db import models
 
-class Livro(models.Model):
-    nome = models.CharField(max_length=255)
-    autor = models.CharField(max_length=255)
-    ano = models.IntegerField()
-
-    def __str__(self):
-        return f"{self.nome} - {self.autor}"
+...
 
 class TCC(models.Model):    # classe adiconada
     titulo = models.CharField(max_length=255)
@@ -564,34 +578,34 @@ Running migrations:
   Applying biblioteca.0002_tcc... OK
 ```
 
-Agora iremos informar ao Django quais modelos devem estar visíveis na interface administrativa. Para incluir o modelo TCC na interface administrativa, temos que dizer ao Django que este modelo deve estar visível na interface administrativa.
+Agora, iremos informar ao Django quais modelos devem estar visíveis na interface administrativa. Para incluir o modelo TCC na interface administrativa, temos que dizer ao Django que este modelo deve estar visível na interface administrativa.
 
 Isso é feito em um arquivo chamado `admin.py`, e está localizado na pasta do seu aplicativo, que no nosso caso é a pasta `biblioteca`. Digite o seguinte código:
 
 ```python
 from django.contrib import admin
 from .models import Livro
-from .models import TCC
+from .models import TCC    #linha adicionada
 
 class LivroAdmin(admin.ModelAdmin):
     list_display = ("nome", "autor", "ano")
 
-class TCCAdmin(admin.ModelAdmin):
+class TCCAdmin(admin.ModelAdmin):  # função adicionada
     list_display = ("titulo", "autor", "orientador", "ano")
 
 admin.site.register(Livro, LivroAdmin)
-admin.site.register(TCC, TCCAdmin)
+admin.site.register(TCC, TCCAdmin) # linha adicionada
 ```
 
-Agora reinicie o servidor:
+Agora, reinicie o servidor:
 
 ```bash
 (venv) ... $ python3 manage.py runserver
 ```
 
-Agora volte para o navegador e atualize a barra de endereço [127.0.0.1:8000/admin/](127.0.0.1:8000/admin/)
+Agora, volte para o navegador e atualize a barra de endereço [127.0.0.1:8000/admin/](127.0.0.1:8000/admin/).
 
-Agora podemos criar, atualizar e excluir TCCs em nosso banco de dados.
+Agora, podemos criar, atualizar e excluir TCCs em nosso banco de dados.
 
 Iremos adicionar mais três TCCs, clique no botão "ADICIONAR TCC" no canto superior direito:
 
@@ -620,7 +634,7 @@ Você receberá um formulário vazio onde poderá preencher os campos do TCC. Ut
 
 Preencha os campos e clique em `SAVE`:
 
-Agora iremos atualizar a interface do TCC para puxar/pegar os dados do BD.
+Agora, iremos atualizar a interface do TCC para puxar/pegar os dados do BD.
 
 Assim, é necessário atualizar o código `views.py` da pasta `biblioteca`.
 
@@ -639,7 +653,7 @@ def tccs(request):         # atualize esta função
     return HttpResponse(template.render(context, request))
 ```
 
-Agora volte para o navegador e atualize a barra de endereço [127.0.0.1:8000/tccs](127.0.0.1:8000/tccs)
+Agora volte para o navegador e atualize a barra de endereço [127.0.0.1:8000/tccs](127.0.0.1:8000/tccs).
 
 Repare que os TCCs listados são somente os TCCs cadastrados no Banco de Dados.
 
@@ -656,7 +670,7 @@ def tcc_detalhes(request, id):
     return HttpResponse(template.render(context, request))
 ```
 
-Para mais informações consulte a [documentação oficial do django](https://docs.djangoproject.com/en/4.2/topics/db/models/).
+Para mais informações, consulte a [documentação oficial do django](https://docs.djangoproject.com/en/4.2/topics/db/models/).
 
 ### Adicionando Controle de Usuários no Django
 
@@ -666,13 +680,13 @@ O Django possui já prontos diversos recursos para trabalhar com autenticação 
 
 Agora, iremos adicionar em nosso projeto um sistema de gestão de usuários. Para criarmos na sequência as telas de login e cadastro na plataforma.
 
-Para isso iremos criar uma outra aplicação/aplicativo web dentro do nosso projeto. Assim, digite o seguinte conteúdo.
+Para isso, iremos criar uma outra aplicação/aplicativo web dentro do nosso projeto. Assim, digite o seguinte conteúdo.
 
 ```bash
 (venv) ... $ python3 manage.py startapp usuarios
 ```
 
-Agora, atualize a lista `INSTALLED_APPS` em `settings.py` na pasta `biblioteca`:
+Agora, atualize a lista `INSTALLED_APPS` em `settings.py` na pasta `portal_biblioteca`:
 
 ```python
 ...
@@ -714,7 +728,7 @@ urlpatterns = [
 ]
 ```
 
-Agora, precisamos definir as views do nosso sistema de login e cadastro. Assim, digite o código abaixo:
+Agora, precisamos definir as views do nosso sistema de login e cadastro. Assim, digite o código abaixo no arquivo `views.py` na pasta `usuarios`:
 
 ```python
 from django.http import HttpResponse
@@ -733,19 +747,19 @@ Agora, iremos criar uma pasta chamada `templates` dentro da aplicação `usuario
 <h1>Login</h1>
 ```
 
-Nesta pasta, iremos criar um arquivo chamado `cadastro.html` com o seguinte conteúdo:
+Ainda nesta pasta, iremos criar também um arquivo chamado `cadastro.html` com o seguinte conteúdo:
 
 ```html
 <h1>Cadastro</h1>
 ```
 
-Agora reinicie o servidor:
+Agora, reinicie o servidor:
 
 ```bash
 (venv) ... $ python3 manage.py runserver
 ```
 
-Agora volte para o navegador e atualize a barra de endereço [127.0.0.1:8000/](127.0.0.1:8000/). Navegue pelas abas Login e Cadastre-se.
+Agora, volte para o navegador e atualize a barra de endereço [127.0.0.1:8000/](127.0.0.1:8000/). Navegue pelas abas Login e Cadastre-se.
 
 ### Melhorando a Tela de Cadastro
 
@@ -784,6 +798,8 @@ No arquivo `cadastro.html` digite o seguinte:
 
 **Explicação:** O código acima cria um formulário com os seguintes campos: usuário, email, senha e botão cadastrar. Neste formulário, quando clicado no botão cadastrar enviará uma ação via método POST para a url de nome `cadastro` (nome definida no arquivo `url.py`). A tag `csrf_token` é necessária para fazer uma verificação de segurança.
 
+**Explicação:** O CSRF Token, que significa "Cross-Site Request Forgery Token" (Token de Proteção contra Solicitação Falsificada entre Sites), é uma medida de segurança utilizada em aplicações da web para proteger contra ataques CSRF (Cross-Site Request Forgery), também conhecidos como ataques de falsificação de solicitação entre sites. Um ataque CSRF ocorre quando um invasor engana um usuário autenticado a executar ações indesejadas em um site sem o conhecimento ou consentimento do usuário. Isso é feito explorando o fato de que os navegadores da web geralmente incluem automaticamente cookies de sessão em todas as solicitações para um domínio, incluindo solicitações maliciosas.
+
 Em seguida, atualize o código do método cadastro na `view.py`.
 
 ```python
@@ -798,18 +814,19 @@ def cadastro(request): # atualize essa função
         return HttpResponse(usuario)
 ```
 
-Agora reinicie o servidor:
+Em seguida, acesse o servidor e efetue um cadastro e analise o resultado na tela.
 
-```bash
-(venv) ... $ python3 manage.py runserver
-```
+Até aqui, não efetuamos de fato um cadastro, apenas exibimos na tela a informação do usuário. 
 
-Em seguida, efetue um cadastro e analise o resultado na tela.
+Agora, iremos inserir as informações cadastradas no BD.
 
-Em seguida, atualize o código do método cadastro na `view.py`.
+Assim, atualize o código do método `cadastro` na `view.py`.
 
 ```python
+from django.contrib.auth.models import User
+
 ...
+
 def cadastro(request):
     if request.method == "GET":
         return render(request, 'cadastro.html')
@@ -829,13 +846,7 @@ def cadastro(request):
         return HttpResponse('Usuário cadastrado com sucesso')
 ```
 
-Agora reinicie o servidor:
-
-```bash
-(venv) ... $ python3 manage.py runserver
-```
-
-Em seguida, efetue um cadastro e analise o resultado na tela e também no menu administrativo do Django.
+Em seguida, acesse o servidor e efetue um cadastro e analise o resultado na tela e também no menu administrativo do Django. Efetue também cadastro de dois usuários com mesmo nome e analise o resultado.
 
 **OBS:** O Django não armazena senhas brutas (texto não criptografado) no modelo de usuário. Ele armazena apenas um hash da senha.
 
@@ -873,9 +884,10 @@ No arquivo `login.html` digite o seguinte:
 {% endblock %}
 ```
 
-Em seguida, atualize o código do método login na `view.py`.
+Em seguida, atualize o código do método `login` na `view.py`.
 
 ```python
+from django.contrib.auth import authenticate
 ...
 def login(request): #atualize essa função
     if request.method == "GET":
@@ -891,13 +903,7 @@ def login(request): #atualize essa função
 
 ```
 
-Agora reinicie o servidor:
-
-```bash
-(venv) ... $ python3 manage.py runserver
-```
-
-Em seguida, efetue um login e analise o resultado na tela.
+Agora, acesse o servidor e efetue um login e analise o resultado na tela. Tente colocar um usuário válido e um usuário inválido.
 
 Em seguida, atualize o código do método cadastro na `view.py`.
 
@@ -914,19 +920,25 @@ def login(request):
         
         user = authenticate(username=usuario, password=senha)
         if user:
-            login_django(request, user)
+            login_django(request, user) # linha adicionada
             return HttpResponse('Autenticado')
         else:
             return HttpResponse('Usuario ou Senha inválidos')
 ```
 
-Agora reinicie o servidor:
+Agora, acesse o servidor e efetue um login e analise o resultado na tela. Tente colocar um usuário válido e um usuário inválido. Neste ponto ainda não dá para ver muita diferença entre os dois útlimos passos.
 
-```bash
-(venv) ... $ python3 manage.py runserver
-```
+**Explicação:** As principais diferenças entre "authenticate" e "login" do django são destacadas a seguir:
 
-Em seguida, efetue um login e analise o resultado na tela.
+**authenticate:**
+* O método "authenticate" é uma função fornecida pelo Django que é usada para verificar as credenciais de um usuário em um sistema de autenticação.
+* Ele recebe as informações de login do usuário, como nome de usuário e senha, e verifica se essas informações correspondem a um usuário registrado no sistema.
+* Se as credenciais estiverem corretas, o método "authenticate" retornará um objeto de usuário válido que representa o usuário autenticado. Caso contrário, retornará "None".
+
+**login:**
+* O método "login" refere-se ao processo de estabelecer uma sessão de usuário autenticada em um aplicativo da web após a autenticação bem-sucedida.
+* O Django fornece uma função chamada "login" que permite que você associe um objeto de usuário autenticado a uma sessão. Isso é importante para manter o estado de autenticação do usuário durante a sessão.
+* A função "login" normalmente é usada após o usuário ser autenticado com sucesso usando o "authenticate".
 
 ### Dashboard Disponível Apenas para Usuários Logados
 
@@ -949,9 +961,7 @@ Uma outra forma de fazer a mesma operação é utilizando o decorador `login_req
 
 ```python
 from django.contrib.auth.decorators import login_required
-
 ...
-
 @login_required(login_url="/auth/login")
 def dashboard(request):
     template = loader.get_template('dashboard.html')
@@ -1018,11 +1028,3 @@ COMMIT;
 ```
 
 Para vermos com detalhes o conteúdo do BD podemos utilizar a ferramenta [DB Browser for SQLite](https://sqlitebrowser.org/). Assim, basta abrir o arquivo do BD chamado `db.sqlite3` que está na raiz do projeto.
-
-### Comandos Não Utilizados
-
-Instale a biblioteca Pillow que dá suporte ao processamento de imagens no ambiente virtual criado:
-
-```bash
-(venv) ... $ pip3 install Pillow
-```
