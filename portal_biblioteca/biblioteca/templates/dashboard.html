@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block titulo %}
+    Portal Biblioteca - Dashboard
+{% endblock %}
+
+{% block conteudo %}
+    <div class="mycard">
+        <h1>Dashboard</h1>
+        <div>
+            <canvas id="graficoNumVolumes"></canvas>
+        </div>
+        <br>
+        <br>
+        <div>
+            <canvas id="graficoPizza"></canvas>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{% static 'myscripts.js' %}"></script>
+{% endblock %}
