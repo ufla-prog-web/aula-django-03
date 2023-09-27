@@ -205,7 +205,8 @@ Inicie a execução do projeto django criado:
 
 **OBS:** Por padrão, o servidor de desenvolvimento escuta na porta 8000, mas você pode especificar uma porta diferente como argumento opcional, por exemplo, `python3 manage.py runserver 8081`.
 
-Acesse através do navegdor web a página [http://127.0.0.1:8000/](http://127.0.0.1:8000/). 
+Acesse através do navegdor web a página [http://127.0.0.1:8000/](http://127.0.0.1:8000/).
+
 A aula anterior avançou até aqui.
 
 ### Criando nosso Primeiro Modelo
@@ -1005,6 +1006,169 @@ def logout(request):
 **Explicação:** Quando você chama `logout()` do django ou `logout_django()` neste caso, os dados da sessão da solicitação atual são completamente limpos. Todos os dados existentes são removidos. Isso evita que outra pessoa use o mesmo navegador para fazer login e ter acesso aos dados da sessão do usuário anterior.
 
 Em seguida, acesse o sistema, faça logout, tente acessar a página de dashboard, faça login, tente acessar a página de dashboard. Analise as mensagens impressas.
+
+
+### Adicionando Bootstrap no Sistema
+
+Neste passo, iremos melhorar a aparência do nosso sistema utilizando o framework Bootstrap. Caso tenha dúvidas em como funciona o Bootstrap consulte a [documentação oficial](https://getbootstrap.com/docs/5.3/getting-started/introduction/) ou o [curso da w3schools](https://www.w3schools.com/bootstrap5/index.php).
+
+Para incorporar o bootstrap no nosso sistema primeiro, atualize o arquivo `base.html` da pasta `biblioteca` e subpasta `templates` conforme código abaixo:
+
+```html
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="{% static 'mystyles.css' %}"> 
+        <title>{% block titulo %}{% endblock %}</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">  
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    </head>
+    <body>
+        <div class="topnav">
+            <a href="/">PRINCIPAL</a> |
+            <a href="/livros">LIVROS</a> |
+            <a href="/tccs">TCCs</a> |
+            <a href="/dashboard">DASHBOARD</a> |
+            <a href="/auth/login">LOGIN</a> |
+            <a href="/auth/cadastro">CADASTRE-SE</a> |
+            <a href="/auth/logout">LOGOUT</a>
+        </div>
+        {% block conteudo %}
+        {% endblock %}
+    </body>
+</html>
+```
+
+Em seguida, atualize o arquivo `login.html` da pasta `usuario` e subpasta `templates`.
+
+```html
+...
+<form action="{% url 'login' %}" method="POST">
+    {% csrf_token %}
+    <div class="input-group">
+        <span class="input-group-text">Usuário: </span>
+        <input type="text" class="form-control" placeholder="Usuário ..." name="usuario">
+    </div>
+    <br>
+    <div class="input-group">
+        <span class="input-group-text">Senha: </span>
+        <input type="password" class="form-control" placeholder="Senha ..." name="senha">
+    </div>
+    <br>
+    <input type="submit" value="Logar" class="btn btn-primary">
+</form>
+...
+```
+
+Em seguida, atualize o arquivo `cadastro.html` da pasta `usuario` e subpasta `templates`.
+
+```html
+...
+<form action="{% url 'cadastro' %}" method="POST">
+    {% csrf_token %}
+    <div class="input-group">
+        <span class="input-group-text">Usuário: </span>
+        <input type="text" class="form-control" placeholder="Usuário ..." name="usuario">
+    </div>
+    <br>
+    <div class="input-group">
+        <span class="input-group-text">E-mail: </span>
+        <input type="email" class="form-control" placeholder="E-mail ..." name="email">
+    </div>
+    <br>
+    <div class="input-group">
+        <span class="input-group-text">Senha: </span>
+        <input type="password" class="form-control" placeholder="Senha ..." name="senha">
+    </div>
+    <br>
+    <input type="submit" value="Cadastrar" class="btn btn-primary">        
+</form>
+...
+```
+
+Em seguida, acesse a aplicação no navegador e análise a nova interface do sistema nas telas de login e cadastro.
+
+### Adicionando no Dashboard Informação do Usuário Logado
+
+Nessa etapa desejamos adicionar informações do usuário logado na tela do dashboard.
+
+Primeiramente, iremos atualizar o método dashboard no arquivo `views.py` da pasta `biblioteca`.
+
+```python
+@login_required(login_url="/auth/login")
+def dashboard(request):
+    template = loader.get_template('dashboard.html')
+    # Você pode acessar o usuário logado através de request.user
+    user = request.user
+    # Agora você pode fazer qualquer coisa com o objeto 'user', como acessar seus campos, por exemplo:
+    username = user.username
+    email = user.email
+    context = {
+        'usuario': username,
+        'email': email,
+    }
+    return HttpResponse(template.render(context, request))
+```
+
+Em seguida, é necessário atualizar também o arquivo `dashboard.html` da `biblioteca` e subpasta `templates`.
+
+```html
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block titulo %}
+    Portal Biblioteca - Dashboard
+{% endblock %}
+
+{% block conteudo %}
+    <!-- Início do bloco de código adicionado -->
+    <center>
+    <br>
+    <div class="card" style="width:240px">
+        <img class="card-img-top" src="{% static 'img_avatar.png' %}" alt="Imagem do card">
+        <div class="card-body">
+          <h4 class="card-title"> {{ usuario }} </h4>
+          <p class="card-text">Email: {{ email }} </p>
+        </div>
+    </div>
+    </center>
+    <!-- Fim do bloco de código adicionado -->
+
+    <div class="mycard">
+        <h1>Dashboard</h1>
+        <div>
+            <canvas id="graficoNumVolumes"></canvas>
+        </div>
+        <br>
+        <br>
+        <div>
+            <canvas id="graficoPizza"></canvas>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{% static 'myscripts.js' %}"></script>
+{% endblock %}
+```
+
+Em seguida, é necessário copiar o arquivo `img_avatar.png` da pasta `docs` para a pasta `staticfiles`.
+
+Em seguida, execute o seguinte comando abaixo:
+
+```bash
+(venv) ... $ python3 manage.py collectstatic
+```
+
+Em seguida, reinicie o servidor:
+
+```bash
+(venv) ... $ python3 manage.py runserver
+```
+
+Analise a página de dashboard com diferentes usários logados no sistema.
 
 ### Algumas Informações Adicionais
 
