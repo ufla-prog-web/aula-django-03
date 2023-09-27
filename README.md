@@ -656,7 +656,11 @@ def tcc_detalhes(request, id):
     return HttpResponse(template.render(context, request))
 ```
 
+Para mais informações consulte a [documentação oficial do django](https://docs.djangoproject.com/en/4.2/topics/db/models/).
+
 ### Adicionando Controle de Usuários no Django
+
+Esta parte do tutorial foi baseada na [documentação oficial django](https://docs.djangoproject.com/en/4.2/topics/auth/default/) e também na [videoaula](https://www.youtube.com/watch?v=gdhiA6wObw0).
 
 O Django possui já prontos diversos recursos para trabalhar com autenticação de usuários e controle de nível de acesso.
 
@@ -714,15 +718,13 @@ Agora, precisamos definir as views do nosso sistema de login e cadastro. Assim, 
 
 ```python
 from django.http import HttpResponse
-from django.template import loader
+from django.shortcuts import render
 
 def login(request):
-    template = loader.get_template('login.html')
-    return HttpResponse(template.render())
+    return render(request, 'login.html')
 
 def cadastro(request):
-    template = loader.get_template('cadastro.html')
-    return HttpResponse(template.render())
+    return render(request, 'cadastro.html')
 ```
 
 Agora, iremos criar uma pasta chamada `templates` dentro da aplicação `usuarios`. Nesta pasta, iremos criar um arquivo chamado `login.html` com o seguinte conteúdo:
@@ -745,15 +747,254 @@ Agora reinicie o servidor:
 
 Agora volte para o navegador e atualize a barra de endereço [127.0.0.1:8000/](127.0.0.1:8000/). Navegue pelas abas Login e Cadastre-se.
 
-### Melhorando as Telas de Login e Cadastro
+### Melhorando a Tela de Cadastro
 
-Agora, iremos definir melhor as telas de Login e Cadastro. Começaremos com a tela de Cadastro primeiro.
+Agora, iremos definir melhor a tela de Cadastro.
 
 No arquivo `cadastro.html` digite o seguinte:
 
 ```html
+{% extends "base.html" %}
+
+{% block titulo %}
+    Portal Biblioteca - Cadastro
+{% endblock %}
+
+{% block conteudo %}
+    <div class="mycard">
+        <h1>Cadastre-se</h1>
+        <center>
+        <form action="{% url 'cadastro' %}" method="POST">
+            {% csrf_token %}
+            Usuário: <input type="text" placeholder="Usuário ..." name="usuario">
+            <br>
+            <br>
+            E-mail: <input type="email" placeholder="E-mail ..." name="email">
+            <br>
+            <br>
+            Senha: <input type="password" placeholder="Senha ..." name="senha">
+            <br>
+            <br>
+            <input type="submit" value="Cadastrar">
+        </form>
+        </center>
+    </div>
+{% endblock %}
+```
+
+**Explicação:** O código acima cria um formulário com os seguintes campos: usuário, email, senha e botão cadastrar. Neste formulário, quando clicado no botão cadastrar enviará uma ação via método POST para a url de nome `cadastro` (nome definida no arquivo `url.py`). A tag `csrf_token` é necessária para fazer uma verificação de segurança.
+
+Em seguida, atualize o código do método cadastro na `view.py`.
+
+```python
+...
+def cadastro(request): # atualize essa função
+    if request.method == "GET":
+        return render(request, 'cadastro.html')
+    else: #senão será via método "POST":
+        usuario = request.POST.get('usuario')
+        email = request.POST.get('email')
+        senha = request.POST.get('senha')
+        return HttpResponse(usuario)
+```
+
+Agora reinicie o servidor:
+
+```bash
+(venv) ... $ python3 manage.py runserver
+```
+
+Em seguida, efetue um cadastro e analise o resultado na tela.
+
+Em seguida, atualize o código do método cadastro na `view.py`.
+
+```python
+...
+def cadastro(request):
+    if request.method == "GET":
+        return render(request, 'cadastro.html')
+    else: #senão será via método "POST":
+        usuario = request.POST.get('usuario')
+        email = request.POST.get('email')
+        senha = request.POST.get('senha')
+
+        user = User.objects.filter(username=usuario).first()
+        if user:
+            return HttpResponse('Já existe um usuário com esse username')
+
+        # se não existir usuário com esse nome cria e salva o mesmo.
+        user = User.objects.create_user(username=usuario, email=email, password=senha)
+        user.save()
+
+        return HttpResponse('Usuário cadastrado com sucesso')
+```
+
+Agora reinicie o servidor:
+
+```bash
+(venv) ... $ python3 manage.py runserver
+```
+
+Em seguida, efetue um cadastro e analise o resultado na tela e também no menu administrativo do Django.
+
+**OBS:** O Django não armazena senhas brutas (texto não criptografado) no modelo de usuário. Ele armazena apenas um hash da senha.
+
+Para mais detalhes sobre a classe `User` consulte a [documentação oficial](https://docs.djangoproject.com/en/4.2/topics/auth/default/).
+
+### Melhorando a Tela de Login
+
+Agora, iremos definir melhor a tela de Login.
+
+No arquivo `login.html` digite o seguinte:
+
+```html
+{% extends "base.html" %}
+
+{% block titulo %}
+    Portal Biblioteca - Login
+{% endblock %}
+
+{% block conteudo %}
+    <div class="mycard">
+        <h1>Login</h1>
+        <center>
+        <form action="{% url 'login' %}" method="POST">
+            {% csrf_token %}
+            Usuário: <input type="text" placeholder="Usuário ..." name="usuario">
+            <br>
+            <br>
+            Senha: <input type="password" placeholder="Senha ..." name="senha">
+            <br>
+            <br>
+            <input type="submit" value="Logar">
+        </form>
+        </center>
+    </div>
+{% endblock %}
+```
+
+Em seguida, atualize o código do método login na `view.py`.
+
+```python
+...
+def login(request): #atualize essa função
+    if request.method == "GET":
+        return render(request, 'login.html')
+    else:
+        usuario = request.POST.get('usuario')
+        senha = request.POST.get('senha')
+        user = authenticate(username=usuario, password=senha)
+        if user:
+            return HttpResponse('Autenticado')
+        else:
+            return HttpResponse('Usuario ou Senha inválidos')
 
 ```
+
+Agora reinicie o servidor:
+
+```bash
+(venv) ... $ python3 manage.py runserver
+```
+
+Em seguida, efetue um login e analise o resultado na tela.
+
+Em seguida, atualize o código do método cadastro na `view.py`.
+
+```python
+from django.contrib.auth import login as login_django #importe também o login
+
+...
+def login(request):
+    if request.method == "GET":
+        return render(request, 'login.html')
+    else:
+        usuario = request.POST.get('usuario')
+        senha = request.POST.get('senha')
+        
+        user = authenticate(username=usuario, password=senha)
+        if user:
+            login_django(request, user)
+            return HttpResponse('Autenticado')
+        else:
+            return HttpResponse('Usuario ou Senha inválidos')
+```
+
+Agora reinicie o servidor:
+
+```bash
+(venv) ... $ python3 manage.py runserver
+```
+
+Em seguida, efetue um login e analise o resultado na tela.
+
+### Dashboard Disponível Apenas para Usuários Logados
+
+Agora, iremos permitir que a visualização dos dashboards esteja disponível apenas se o usuário estiver logado na plataforma.
+
+Dessa maneira, atualize o código da função dashboard em `view.py` da pasta `biblioteca` para o seguinte.
+
+```python
+...
+def dashboard(request):
+    if request.user.is_authenticated:
+        template = loader.get_template('dashboard.html')
+        return HttpResponse(template.render())
+    return HttpResponse("Você precisa estar logado!")
+```
+
+Em seguida, abra uma guia anônima do navegador e tente acessar a tela de dashboard. Na sequência, faça login na plataforma e então tente acessar o dashboard.
+
+Uma outra forma de fazer a mesma operação é utilizando o decorador `login_required`. Atualize o seu código da função dashborad em `view.py` da pasta `biblioteca` para o seguinte.
+
+```python
+from django.contrib.auth.decorators import login_required
+
+...
+
+@login_required(login_url="/auth/login")
+def dashboard(request):
+    template = loader.get_template('dashboard.html')
+    return HttpResponse(template.render())
+```
+
+Em seguida, abra uma guia anônima do navegador e tente acessar a tela de dashboard. Perceba que portal redireciona para a tela de login, isso ocorre, pois colocamos isso no parâmetro `login_url`. Na sequência, faça login na plataforma e então tente acessar o dashboard.
+
+### Adicionando Botão de Logout no Sistema
+
+Agora, iremos adicionar no nosso sistema um botão para efetuar o logout.
+
+Para isso, vá no arquivo `base.html` na pasta `templates` na pasta `biblioteca`. E edite o HTML adicionando as linhas destacadas.
+
+```html
+...
+            <a href="/auth/cadastro">CADASTRE-SE</a> |
+            <a href="/auth/logout">LOGOUT</a>
+...
+```
+
+Em seguida, vá no arquivo `urls.py` da pasta `usuarios` e adicione a seguinte rota.
+
+```python
+...
+    path('logout', views.logout, name='logout'),
+...
+```
+
+Em seguida, vá no arquivo `views.py` da pasta `ùsuarios` e adicione o seguinte conteúdo:
+
+```python
+from django.contrib.auth import logout as logout_django
+...
+
+def logout(request):
+    logout_django(request)
+    return HttpResponse('Usuario deslogado do sistema!')
+```
+
+**Explicação:** Quando você chama `logout()` do django ou `logout_django()` neste caso, os dados da sessão da solicitação atual são completamente limpos. Todos os dados existentes são removidos. Isso evita que outra pessoa use o mesmo navegador para fazer login e ter acesso aos dados da sessão do usuário anterior.
+
+Em seguida, acesse o sistema, faça logout, tente acessar a página de dashboard, faça login, tente acessar a página de dashboard. Analise as mensagens impressas.
 
 ### Algumas Informações Adicionais
 
@@ -777,3 +1018,11 @@ COMMIT;
 ```
 
 Para vermos com detalhes o conteúdo do BD podemos utilizar a ferramenta [DB Browser for SQLite](https://sqlitebrowser.org/). Assim, basta abrir o arquivo do BD chamado `db.sqlite3` que está na raiz do projeto.
+
+### Comandos Não Utilizados
+
+Instale a biblioteca Pillow que dá suporte ao processamento de imagens no ambiente virtual criado:
+
+```bash
+(venv) ... $ pip3 install Pillow
+```
