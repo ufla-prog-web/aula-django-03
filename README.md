@@ -122,7 +122,7 @@ Navegue até a pasta `aula-djando-03/portal_biblioteca`.
 Crie o ambiente virtual para isolar as instalações Python:
 
 ```bash
-python3 -m virtualenv venv
+python3 -m venv venv
 ```
 
 ou
@@ -517,7 +517,7 @@ Repare que os livros listados são somente os livros cadastrados no Banco de Dad
 
 Repare que todo o ambiente administrativo do django está em Inglês, vamos agora, alterar isso para português.
 
-Assim, no arquivo `settings.py` (na pasta `biblioteca`), faça a seguinte alteração:
+Assim, no arquivo `settings.py` (na pasta `portal_biblioteca`), faça a seguinte alteração:
 
 ```python
 ...
