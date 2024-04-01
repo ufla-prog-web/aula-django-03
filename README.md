@@ -2,13 +2,13 @@
 
 <p align="center">
   <a href="#">
-    <img src="https://img.shields.io/badge/Aula-Biblioteca-brightgreen.svg" alt="Aula-Biblioteca">
+    <img src="https://img.shields.io/badge/Aula-Python-brightgreen.svg" alt="Aula Python">
   </a>
   <a href="#">
-    <img src="https://img.shields.io/badge/Python-blue.svg" alt="Python">
+    <img src="https://img.shields.io/badge/Aula-Django-blue.svg" alt="Aula Django">
   </a>
   <a href="#">
-    <img src="https://img.shields.io/badge/Django-orange.svg" alt="Django">
+    <img src="https://img.shields.io/badge/Aula-Portal_Biblioteca-orange.svg" alt="Aula Portal Biblioteca">
   </a>
 </p>
 
@@ -16,28 +16,45 @@ Aula Djando 03. Projeto utilizando o Django para ser desenvolvido na Aula de GAC
 
 O objetivo desse projeto é criar um sistema para gestão de biblioteca.
 
-Este tutorial foi elaborado baseado no tutorial disponível no [curso de django da w3schools](https://www.w3schools.com/django/index.php) e também baseado na [documentação oficial do django](https://docs.djangoproject.com/en/4.2/).
+Este tutorial foi elaborado baseado no tutorial disponível no [curso de django da w3schools](https://www.w3schools.com/django/index.php) e também baseado na [documentação oficial do django](https://docs.djangoproject.com/pt-br/5.0/).
 
 ## Linguagens Utilizadas
 
-* Python - [link](https://www.python.org/)
-* JavaScript - [link](https://www.javascript.com/)
-* HTML - [link](https://html.com/)
-* CSS - [link](https://www.w3schools.com/css/)
+* Python - Linguagem de Programação Principal
+    * [link do site python](https://www.python.org/)
+    * [link do curso da w3schools](https://www.w3schools.com/python/default.asp)
+* HTML - Estrutura da Página Web
+    * [link do curso da w3schools](https://www.w3schools.com/html/default.asp)
+* CSS - Apresentação da Página Web
+    * [link do curso da w3schools](https://www.w3schools.com/css/default.asp)
+* JavaScript - Comportamento da Página Web
+    * [link do curso da w3schools](https://www.w3schools.com/js/default.asp)
+* SQL - Linguagem para Consultas no Banco de Dados
+  * [link do curso da w3schools](https://www.w3schools.com/sql/default.asp)
 
 ## Framework Utilizados
 
-* Django - [link](https://www.djangoproject.com/)
-* Bootstrap - [link](https://getbootstrap.com/)
-* Chart.js - [link](https://www.chartjs.org/)
+* Django - Framework Web
+    * [link do site do django](https://www.djangoproject.com/)
+    * [link do curso da w3schools](https://www.w3schools.com/django/index.php)
+* Bootstrap - Framework CSS
+    * [link do site do bootstrap](https://getbootstrap.com/)
+    * [link do curso da w3schools](https://www.w3schools.com/bootstrap5/index.php)
+
+## Bibliotecas Utilizadas
+
+* Jinja - Biblioteca Python para Templates
+    * [link do site do jinja](https://jinja.palletsprojects.com/en/3.1.x/)
+* Chart.js - Biblioteca JavaScript para Gráficos
+    * [link do site do chart.js](https://www.chartjs.org/)
 
 ## Ferramentas Utilizadas
 
-* Pip - [link](https://pypi.org/project/pip/)
-* VirtualEnv - [link](https://virtualenv.pypa.io/)
-* Visual Studio Code - [link](https://code.visualstudio.com/)
-* SQLite Online - [link](https://sqliteonline.com/)
-* DB Browser for SQLite - [link](https://sqlitebrowser.org/)
+* Visual Studio Code - IDE - [link](https://code.visualstudio.com/)
+* Pip - Gerenciador de Pacotes do Python - [link](https://pypi.org/project/pip/)
+* Venv - Ambiente Virtual do Python - [link](https://docs.python.org/pt-br/3/library/venv.html)
+* SQLite Online - SGBD - [link](https://sqliteonline.com/)
+* DB Browser for SQLite - SGBD - [link](https://sqlitebrowser.org/)
 
 ## Arquitetura Web
 
@@ -57,7 +74,7 @@ Fonte: [https://blog.grancursosonline.com.br/arquitetura-em-tres-camadas-para-ap
 
 ![Arquitetura MVT - Requisição](./docs/mvt-2.png)
 
-### Arquitetura MVT - Detalhes
+### Arquitetura MVT - Detalhes da Requisição
 
 ![Arquitetura MVT - Detalhes](./docs/mvt-3.png)
 
@@ -65,9 +82,11 @@ Fonte: [https://blog.grancursosonline.com.br/arquitetura-em-tres-camadas-para-ap
 
 A animação abaixo mostra de forma visual o resultado esperado nesta aula.
 
-![Sistema Objetivo da Aula](./docs/objetivo3.gif)
+![Sistema Objetivo da Aula](./docs/objetivo.gif)
 
-## Comandos utilizados na criação deste projeto
+## Desenvolvimento do Projeto
+
+Os passos a seguir devem ser seguidos para alcançar o objetivo da aula.
 
 ### Clonando o Repositório
 
@@ -81,57 +100,44 @@ git clone https://github.com/ufla-prog-web/aula-django-03.git
 
 Caso deseje ao invês de clonar o repositório (método acima), baixe o repositório do [link](https://github.com/ufla-prog-web/aula-django-03) clicando em `Code` e `Download ZIP`.
 
-### Instalação do VirtualEnv
-
-Se necessário, instale o virtualenv (testado na versão 20.24.1):
-
-```bash
-pip3 install virtualenv
-```
-
-ou
-
-```bash
-python3 -m pip install --user virtualenv
-```
-
-Verifique a versão instalada do virtualenv (para ter certeza que tudo ocorreu bem):
-
-```bash
-virtualenv --version
-```
-
-ou
-
-```bash
-python3 -m virtualenv --version
-```
-
 ### Abrindo o Visual Studio Code
 
-Abra a IDE Visual Studio Code na pasta aula-django-03.
+Abra a IDE Visual Studio Code na pasta `aula-django-03`.
 
 **Dica:** Abra o arquivo `README.md` e clique em `Open Preview to the Side` para facilitar a construção da aplicação.
 
-**Dica:** Abra um terminal utilizando a IDE clicando em `Terminal` e `New Terminal`. Navegue até a pasta `portal_biblioteca`.
+**Dica:** Abra um terminal utilizando a IDE clicando em `Terminal` e `New Terminal`.
 
-### Criação do Ambiente Virtual
+### Navegando até a Pasta do Projeto
 
-Navegue até a pasta `aula-djando-03/portal_biblioteca`.
+Em seguida, navegue a pasta do projeto (`portal_biblioteca`) dentro da pasta baixada do github (`aula-django-03`):
 
-Crie o ambiente virtual para isolar as instalações Python:
+```bash
+cd aula-django-03/
+cd portal_biblioteca/
+```
+
+### Criando o Ambiente Virtual
+
+Crie o ambiente virtual (venv) para isolar as instalações/dependências do Python:
+
+Unix/macOS
 
 ```bash
 python3 -m venv venv
 ```
 
-ou
+Windows
 
 ```bash
-virtualenv venv
+py -m venv venv
 ```
 
-Ativei o ambiente virtual para fazer as instalações de forma isolada:
+**OBS:** no comando acima, o segundo nome `venv` é o nome que escolhemos para o nosso ambiente virtual (isso pode ser alterado).
+
+### Ativando o Ambiente Virtual
+
+Ative o ambiente virtual (venv) no seu computador utilizando o comando abaixo:
 
 **Sistema Operacional:** Unix/Mac OS:
 
@@ -142,42 +148,43 @@ source venv/bin/activate
 **Sistema Operacional:** Windows
 
 ```bash
+Set-ExecutionPolicy Unrestricted -Scope Process
 venv\Scripts\activate.bat
 ```
 
 Quando desejar sair do ambiente virtual, basta digitar:
 
 ```bash
-(venv) ... $ deactivate
+deactivate
 ```
 
-### Instalação do Django
+### Instalando o Django
 
-Instale o django dentro do ambiente virtual criado (testado na versão 4.2.5):
+Instale o django dentro do ambiente virtual criado (testado na versão 5.0.3):
 
 ```bash
-(venv) ... $ pip3 install django
+pip3 install django
 ```
 
 ou
 
 ```bash
-(venv) ... $ python -m pip install Django
+python -m pip install Django
 ```
 
 Verifique a versão instalada do django (para ter certeza que tudo ocorreu bem):
 
 ```bash
-(venv) ... $ django-admin --version
+django-admin --version
 ```
 
 ou
 
 ```bash
-(venv) ... $ python3 -m django --version
+python3 -m django --version
 ```
 
-**OBS:** Caso o terminal não encontre o django-admin, execute o seguinte comando abaixo (utilizado geralmente quando não se utiliza o VirtualEnv no laboratório DCC07):
+**OBS:** Caso o terminal não encontre o django-admin, execute o seguinte comando (utilizado geralmente quando não se utiliza o venv no laboratório DCC07):
 
 ```bash
 export PATH=$PATH:~/.local/bin
@@ -188,19 +195,19 @@ export PATH=$PATH:~/.local/bin
 Antes de executar o projeto, execute o comando para fazer as migrações:
 
 ```bash
-(venv) ... $ python3 manage.py migrate
+python3 manage.py migrate
 ```
 
 Em seguida, execute comando abaixo para fazer a cópia dos arquivos estáticos:
 
 ```bash
-(venv) ... $ python3 manage.py collectstatic
+python3 manage.py collectstatic
 ```
 
 Inicie a execução do projeto django criado:
 
 ```bash
-(venv) ... $ python3 manage.py runserver
+python3 manage.py runserver
 ```
 
 **OBS:** Por padrão, o servidor de desenvolvimento escuta na porta 8000, mas você pode especificar uma porta diferente como argumento opcional, por exemplo, `python3 manage.py runserver 8081`.
@@ -209,11 +216,11 @@ Acesse através do navegdor web a página [http://127.0.0.1:8000/](http://127.0.
 
 A aula anterior avançou até aqui.
 
-### Criando nosso Primeiro Modelo
+### Criando o Primeiro Modelo no Django
 
 Até esse momento fizemos a nossa aplicação web com interface, com URLs e algum processamento, mas não trabalhamos com Banco de Dados. Os dados estavam inseridos diretamente no código.
 
-Iremos agora criar o nosso modelo para representar Livros e TCCs no Banco de Dados SQLite disponível no Django. No Django, os dados são criados em objetos, chamados Modelos, e na verdade são tabelas em um banco de dados.
+Iremos agora criar o nosso modelo para representar Livros e TCCs no Banco de Dados SQLite disponível no Django. No Django, os dados são criados em objetos, chamados Modelos, e na verdade, são tabelas em um banco de dados.
 
 Primeiramente, iremos criar uma classe chamada `Livro`. Para isso abra o arquivo `models.py` na pasta `biblioteca` e digite o seguinte conteúdo:
 
@@ -228,12 +235,12 @@ class Livro(models.Model):
 
 O código acima irá criar uma Tabela chamada Livro no BD SQLite. Os campos `nome` e `autor` são campos de texto e estão configurados para ter no máximo 255 caracteres. O campo `ano` é um campo numérico inteiro.
 
-OBS: Quando criamos o projeto Django, obtivemos um banco de dados SQLite vazio. Ele estava na raiz da pasta portal_biblioteca e possui o nome de arquivo db.sqlite3. Por padrão, todos os modelos criados no projeto Django serão criados como tabelas neste banco de dados.
+OBS: Quando criamos o projeto Django, obtivemos um banco de dados SQLite vazio. Ele estava na raiz da pasta portal_biblioteca e possui o nome de arquivo `db.sqlite3`. Por padrão, todos os modelos criados no projeto Django serão criados como tabelas neste banco de dados.
 
 Em seguida, execute o código abaixo para que seja criado a tabela Livro no banco de dados de fato:
 
 ```bash
-(venv) ... $ python3 manage.py makemigrations biblioteca
+python3 manage.py makemigrations biblioteca
 ```
 
 **OBS:** Após definir os modelos, você cria migrações com este comando. Isso cria arquivos de migração que descrevem como o banco de dados deve ser modificado para refletir as alterações nos modelos.
@@ -253,7 +260,7 @@ A tabela ainda não foi criada, você terá que executar mais um comando, então
 Execute o comando de migração:
 
 ```bash
-(venv) ... $ python3 manage.py migrate
+python3 manage.py migrate
 ```
 
 **OBS:** Este comando aplica as migrações, ou seja, atualiza o esquema do banco de dados de acordo com as mudanças nos modelos.
@@ -270,7 +277,7 @@ Running migrations:
 Usaremos o interpretador Python (Python Shell) para adicionar alguns livros a tabela criada no BD. Para abrir um shell Python, digite este comando:
 
 ```bash
-(venv) ... $ python3 manage.py shell
+python3 manage.py shell
 ```
 
 O que resultará nesta saída:
@@ -330,14 +337,14 @@ quit()
 Você acaba de aprender como criar uma tabela no BD e como inserir informações nessa tabela utilizando o interpretador do Python.
 Existe outras formas de fazer a inserção de informações nessa tabela e veremos isso adiante.
 
-### Ambiente Administrativo do Django
+### Acessando o Ambiente Administrativo do Django
 
 O Django Admin é uma ferramenta ótima do Django, na verdade é uma interface de usuário CRUD (Criar, Ler, Atualizar, Excluir) para todos os seus modelos!
 
 Para entrar na interface do usuário administrativo, inicie o servidor com este comando:
 
 ```bash
-(venv) ... $ python3 manage.py runserver
+python3 manage.py runserver
 ```
 
 Na janela do navegador, digite na barra de endereço [127.0.0.1:8000/admin/](127.0.0.1:8000/admin/)
@@ -361,7 +368,7 @@ urlpatterns = [
 Para poder fazer login no ambiente administrativo do Django, precisamos criar um usuário. Isso é feito digitando este comando:
 
 ```bash
-(venv) ... $ python3 manage.py createsuperuser
+python3 manage.py createsuperuser
 ```
 
 O que dará um prompt como esse:
@@ -388,7 +395,7 @@ Superuser created successfully.
 Agora reinicie o servidor:
 
 ```bash
-(venv) ... $ python3 manage.py runserver
+python3 manage.py runserver
 ```
 
 Na janela do navegador, digite na barra de endereço [127.0.0.1:8000/admin/](127.0.0.1:8000/admin/).
@@ -463,7 +470,7 @@ admin.site.register(Livro, LivroAdmin)
 
 Agora volte para o navegador e atualize a barra de endereço [127.0.0.1:8000/admin/](127.0.0.1:8000/admin/).
 
-### Adicionando novos Livros
+### Adicionando Novos Livros
 
 Agora podemos criar, atualizar e excluir livros em nosso banco de dados.
 
@@ -513,7 +520,7 @@ Agora volte para o navegador e atualize a barra de endereço [127.0.0.1:8000/liv
 
 Repare que os livros listados são somente os livros cadastrados no Banco de Dados.
 
-### Configuração do Projeto Django em Português
+### Configurando o Projeto Django em Português
 
 Repare que todo o ambiente administrativo do django está em Inglês, vamos agora, alterar isso para português.
 
@@ -553,7 +560,7 @@ O código acima irá criar uma Tabela chamada TCC no BD SQLite.
 Em seguida, execute o código abaixo para que seja criado a tabela TCC no banco de dados de fato:
 
 ```bash
-(venv) ... $ python3 manage.py makemigrations biblioteca
+python3 manage.py makemigrations biblioteca
 ```
 
 O que resultará nesta saída:
@@ -567,7 +574,7 @@ Migrations for 'biblioteca':
 A tabela ainda não foi criada, execute o comando de migração para que a tabela seja de fato criada:
 
 ```bash
-(venv) ... $ python3 manage.py migrate
+python3 manage.py migrate
 ```
 
 O que resultará nesta saída:
@@ -601,7 +608,7 @@ admin.site.register(TCC, TCCAdmin) # linha adicionada
 Agora, reinicie o servidor:
 
 ```bash
-(venv) ... $ python3 manage.py runserver
+python3 manage.py runserver
 ```
 
 Agora, volte para o navegador e atualize a barra de endereço [127.0.0.1:8000/admin/](127.0.0.1:8000/admin/).
@@ -684,7 +691,7 @@ Agora, iremos adicionar em nosso projeto um sistema de gestão de usuários. Par
 Para isso, iremos criar uma outra aplicação/aplicativo web dentro do nosso projeto. Assim, digite o seguinte conteúdo.
 
 ```bash
-(venv) ... $ python3 manage.py startapp usuarios
+python3 manage.py startapp usuarios
 ```
 
 Agora, atualize a lista `INSTALLED_APPS` em `settings.py` na pasta `portal_biblioteca`:
@@ -757,7 +764,7 @@ Ainda nesta pasta, iremos criar também um arquivo chamado `cadastro.html` com o
 Agora, reinicie o servidor:
 
 ```bash
-(venv) ... $ python3 manage.py runserver
+python3 manage.py runserver
 ```
 
 Agora, volte para o navegador e atualize a barra de endereço [127.0.0.1:8000/](127.0.0.1:8000/). Navegue pelas abas Login e Cadastre-se.
@@ -941,7 +948,7 @@ Agora, acesse o servidor e efetue um login e analise o resultado na tela. Tente 
 * O Django fornece uma função chamada "login" que permite que você associe um objeto de usuário autenticado a uma sessão. Isso é importante para manter o estado de autenticação do usuário durante a sessão.
 * A função "login" normalmente é usada após o usuário ser autenticado com sucesso usando o "authenticate".
 
-### Dashboard Disponível Apenas para Usuários Logados
+### Disponibilizando o Dashboard Apenas para Usuários Logados
 
 Agora, iremos permitir que a visualização dos dashboards esteja disponível apenas se o usuário estiver logado na plataforma.
 
@@ -1159,13 +1166,13 @@ Em seguida, é necessário copiar o arquivo `img_avatar.png` da pasta `docs` par
 Em seguida, execute o seguinte comando abaixo:
 
 ```bash
-(venv) ... $ python3 manage.py collectstatic
+python3 manage.py collectstatic
 ```
 
 Em seguida, reinicie o servidor:
 
 ```bash
-(venv) ... $ python3 manage.py runserver
+python3 manage.py runserver
 ```
 
 Analise a página de dashboard com diferentes usários logados no sistema.
@@ -1175,7 +1182,7 @@ Analise a página de dashboard com diferentes usários logados no sistema.
 Caso queira ver o que foi feito no BD, basta digitar o comando abaixo com o número da migração:
 
 ```bash
-(venv) ... $ python3 manage.py sqlmigrate biblioteca 0001
+python3 manage.py sqlmigrate biblioteca 0001
 ```
 
 **Obs:** no comando acima `biblioteca` representa o nome da nossa aplicação web e o número 0001 é o número da migração.
@@ -1192,3 +1199,10 @@ COMMIT;
 ```
 
 Para vermos com detalhes o conteúdo do BD podemos utilizar a ferramenta [DB Browser for SQLite](https://sqlitebrowser.org/). Assim, basta abrir o arquivo do BD chamado `db.sqlite3` que está na raiz do projeto.
+
+### Fim do Tutorial
+
+Chegamos ao final desta aula/tutorial. É importante entender o que faz cada um dos comandos acima explicados. Caso tenha dúvidas acesse o site da documentação do Django e/ou o curso de Django da w3schools nos links abaixo.
+
+* [Documentação Django](https://docs.djangoproject.com/pt-br/5.0/)
+* [Curso Django w3schools](https://www.w3schools.com/django/index.php)
