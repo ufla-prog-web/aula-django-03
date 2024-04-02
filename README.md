@@ -62,8 +62,6 @@ Este tutorial foi elaborado baseado no tutorial disponível no [curso de django 
 
 ![Arquitetura das Aplicações Web](./docs/arquitetura-web.png)
 
-Fonte: [https://blog.grancursosonline.com.br/arquitetura-em-tres-camadas-para-aplicacoes-web/](https://blog.grancursosonline.com.br/arquitetura-em-tres-camadas-para-aplicacoes-web/)
-
 ## Arquitetura Django
 
 ### Arquitetura MVT - Geral
@@ -158,6 +156,10 @@ Quando desejar sair do ambiente virtual, basta digitar:
 deactivate
 ```
 
+### Fluxo de Trabalho no Django
+
+[![](https://mermaid.ink/img/pako:eNqN1E1y2yAUB_CrMHThTVLvveiMbcnfX9Nm0UTKgkrPDikCFZBTNxPfJaseoNMT-GJ9Qq5DNSyqlfjzAwF6wzPNVA60R7dCPWUPTFtyE6WS4NNPUjqVxjLBTj9Pv8GQFWRgzOlVc2ZSek-urz-QAaohBppstHoEq4hUJHpkcqeQNDMNnBxeZL8sA2roVJR0U9q3FRP8B9KOAWu53Jn35aGT0jQ948jhuIUL3Is40-5Zxk6Oaum-3n3zN1CUglkwb3rk9Dik-_pbxffKkNjY06vlmfLGjd24SWs9ew5PreVMHJyGPtCpdHvxU6dnrWlZXnDZOpCZk_P_O725w4sax98hq2xtMyUEZBZ_OO7N1wunl__qgn2Fgu80YiWNz5eOr1rcUfDdyrl14jNdSQN6D7pzKYu1YxtkfYnbMsg-gqmEZbmrtRXbww7ftRvRjNk0Bec3Ir8R-42R3xj7jYnfmNaTN8HnZP1F8x2zp1-aq3tyPB7JbdJdlxmeBRN_f95t3XGHecaM63Bbb_qMPQhAseVC9N6NooEfx-F4FI7H4XgSjqft2O-8u3RGfhyF41k4nofjRThehuOVH9MrWoAuGM_xonquWUrtAxSQ0h6-5rBlWA9YWvIFKaus-nSQGe1ZXcEVrcocKy_iDCuwoL0tEwZTyLlVetlcfu4OfPkDBV6NXw?type=png)](https://mermaid.live/edit#pako:eNqN1E1y2yAUB_CrMHThTVLvveiMbcnfX9Nm0UTKgkrPDikCFZBTNxPfJaseoNMT-GJ9Qq5DNSyqlfjzAwF6wzPNVA60R7dCPWUPTFtyE6WS4NNPUjqVxjLBTj9Pv8GQFWRgzOlVc2ZSek-urz-QAaohBppstHoEq4hUJHpkcqeQNDMNnBxeZL8sA2roVJR0U9q3FRP8B9KOAWu53Jn35aGT0jQ948jhuIUL3Is40-5Zxk6Oaum-3n3zN1CUglkwb3rk9Dik-_pbxffKkNjY06vlmfLGjd24SWs9ew5PreVMHJyGPtCpdHvxU6dnrWlZXnDZOpCZk_P_O725w4sax98hq2xtMyUEZBZ_OO7N1wunl__qgn2Fgu80YiWNz5eOr1rcUfDdyrl14jNdSQN6D7pzKYu1YxtkfYnbMsg-gqmEZbmrtRXbww7ftRvRjNk0Bec3Ir8R-42R3xj7jYnfmNaTN8HnZP1F8x2zp1-aq3tyPB7JbdJdlxmeBRN_f95t3XGHecaM63Bbb_qMPQhAseVC9N6NooEfx-F4FI7H4XgSjqft2O-8u3RGfhyF41k4nofjRThehuOVH9MrWoAuGM_xonquWUrtAxSQ0h6-5rBlWA9YWvIFKaus-nSQGe1ZXcEVrcocKy_iDCuwoL0tEwZTyLlVetlcfu4OfPkDBV6NXw)
+
 ### Instalando o Django
 
 Instale o django dentro do ambiente virtual criado (testado na versão 5.0.3):
@@ -220,7 +222,17 @@ A aula anterior avançou até aqui.
 
 Até esse momento fizemos a nossa aplicação web com interface, com URLs e algum processamento, mas não trabalhamos com Banco de Dados. Os dados estavam inseridos diretamente no código.
 
-Iremos agora criar o nosso modelo para representar Livros e TCCs no Banco de Dados SQLite disponível no Django. No Django, os dados são criados em objetos, chamados Modelos, e na verdade, são tabelas em um banco de dados.
+Agora, iremos criar o nosso modelo para representar Livros e TCCs no Banco de Dados SQLite disponível no Django. No Django, os dados são criados em objetos, chamados Modelos, e na verdade, são tabelas em um banco de dados.
+
+Esse mapeamento entre objetos e tabelas é feito através do ORM (*Object-Relational Mapping*). ORM é uma técnica de programação que permite aos desenvolvedores de software manipular e acessar dados do BD usando objetos da linguagem de programação, em vez de escrever consultas SQL diretamente. Com o ORM, os desenvolvedores podem interagir com o banco de dados utilizando operações em objetos, métodos e propriedades, sem precisar se preocupar com os detalhes específicos do banco de dados subjacente. O ORM mapeia os objetos da aplicação para as tabelas do banco de dados, e vice-versa, facilitando o trabalho com dados de banco de dados em um ambiente de programação orientado a objetos.
+
+Em um framework como Django, o ORM é uma parte fundamental. Ele permite que os desenvolvedores definam modelos de dados (classes Python) que representam as tabelas do banco de dados. Esses modelos incluem campos que representam as colunas do banco de dados e métodos que definem o comportamento dos objetos. O ORM traduz as operações realizadas nos objetos (como salvar, atualizar, excluir) em instruções SQL apropriadas para interagir com o banco de dados.
+
+Usando o ORM, os desenvolvedores podem escrever código mais legível, portátil e seguro, pois não precisam lidar diretamente com SQL. Além disso, o ORM facilita a migração entre diferentes sistemas de gerenciamento de banco de dados (como PostgreSQL, MySQL, SQLite) sem a necessidade de alterações significativas no código da aplicação.
+
+![Modelo ORM do Django](./docs/orm.png)
+
+Fonte: [https://medium.com/@mochammadagusyahya](https://medium.com/@mochammadagusyahya/mastering-data-magic-unleashing-the-power-of-django-orm-in-your-web-development-journey-62fa851bf49a)
 
 Primeiramente, iremos criar uma classe chamada `Livro`. Para isso abra o arquivo `models.py` na pasta `biblioteca` e digite o seguinte conteúdo:
 
@@ -334,8 +346,7 @@ Para sair do ambiente shell digite:
 quit()
 ```
 
-Você acaba de aprender como criar uma tabela no BD e como inserir informações nessa tabela utilizando o interpretador do Python.
-Existe outras formas de fazer a inserção de informações nessa tabela e veremos isso adiante.
+Você acaba de aprender como criar uma tabela no BD e como inserir informações nessa tabela utilizando o interpretador do Python. Existem outras formas de fazer a inserção de informações nessa tabela e veremos isso adiante.
 
 ### Acessando o Ambiente Administrativo do Django
 
@@ -392,7 +403,7 @@ Minha senha não atendeu aos critérios, mas este é um ambiente de teste, e opt
 Superuser created successfully.
 ```
 
-Agora reinicie o servidor:
+Agora, reinicie o servidor:
 
 ```bash
 python3 manage.py runserver
@@ -427,7 +438,7 @@ from .models import Livro
 admin.site.register(Livro)
 ```
 
-Agora volte para o navegador e atualize a barra de endereço [127.0.0.1:8000/admin/](127.0.0.1:8000/admin/)
+Agora, acesse o endereço [127.0.0.1:8000/admin/](127.0.0.1:8000/admin/).
 
 Clique em Livros e veja o registro de livros que inserimos anteriormente neste tutorial:
 
@@ -448,11 +459,11 @@ class Livro(models.Model):
     autor = models.CharField(max_length=255)
     ano = models.IntegerField()
 
-    def __str__(self):  #definição de função adionada
+    def __str__(self):                 # função adionada
         return f"{self.nome} - {self.autor}" 
 ```
 
-Agora volte para o navegador e atualize a barra de endereço [127.0.0.1:8000/admin/](127.0.0.1:8000/admin/).
+Agora, acesse o endereço [127.0.0.1:8000/admin/](127.0.0.1:8000/admin/) e analise o resultado.
 
 Para alterar utilizando a segunda forma (RECOMENDADA), devemos definir a propriedade `list_display` do arquivo `admin.py`. Primeiro crie uma classe `LivroAdmin()` e especifique a tupla `list_display`, assim:
 
@@ -468,11 +479,11 @@ admin.site.register(Livro, LivroAdmin)
 
 **OBS:** Lembre-se de adicionar LivroAdmin como um argumento no arquivo, como em: `admin.site.register(Livro, LivroAdmin)`.
 
-Agora volte para o navegador e atualize a barra de endereço [127.0.0.1:8000/admin/](127.0.0.1:8000/admin/).
+Agora, acesse o endereço [127.0.0.1:8000/admin/](127.0.0.1:8000/admin/) e analise o resultado.
 
 ### Adicionando Novos Livros
 
-Agora podemos criar, atualizar e excluir livros em nosso banco de dados.
+Agora, podemos criar, atualizar e excluir livros em nosso banco de dados.
 
 Iremos adicionar mais dois livros, clique no botão "ADD LIVRO" no canto superior direito:
 
@@ -516,9 +527,7 @@ def livros(request):         # atualize esta função
     return HttpResponse(template.render(context, request))
 ```
 
-Agora volte para o navegador e atualize a barra de endereço [127.0.0.1:8000/livros](127.0.0.1:8000/livros).
-
-Repare que os livros listados são somente os livros cadastrados no Banco de Dados.
+Por fim, acesse o endereço [127.0.0.1:8000/livros](127.0.0.1:8000/livros) e analise o resultado. Repare que os livros listados são somente os livros cadastrados no Banco de Dados.
 
 ### Configurando o Projeto Django em Português
 
@@ -532,17 +541,15 @@ LANGUAGE_CODE = 'pt-BR'
 ...
 ```
 
-Agora volte para o navegador e atualize a barra de endereço [127.0.0.1:8000/admin/](127.0.0.1:8000/admin/).
+Por fim, acesse o endereço [127.0.0.1:8000/admin/](127.0.0.1:8000/admin/) e analise o resultado.
 
 ### Carregando a Interface TCC com Dados do BD
 
-Até aqui criamos apenas uma Tabela no BD que é Livro. Agora iremos criar uma Tabela TCC no Modelo do BD.
+Até aqui criamos apenas uma Tabela no BD que é Livro. Agora, iremos criar uma Tabela TCC no Modelo do BD.
 
 Primeiramente, iremos criar uma classe chamada `TCC`. Para isso, abra o arquivo `models.py` na pasta `biblioteca` e digite o seguinte conteúdo:
 
 ```python
-from django.db import models
-
 ...
 
 class TCC(models.Model):    # classe adiconada
@@ -611,7 +618,7 @@ Agora, reinicie o servidor:
 python3 manage.py runserver
 ```
 
-Agora, volte para o navegador e atualize a barra de endereço [127.0.0.1:8000/admin/](127.0.0.1:8000/admin/).
+Em seguida, acesse o endereço [127.0.0.1:8000/admin/](127.0.0.1:8000/admin/).
 
 Agora, podemos criar, atualizar e excluir TCCs em nosso banco de dados.
 
@@ -661,11 +668,9 @@ def tccs(request):         # atualize esta função
     return HttpResponse(template.render(context, request))
 ```
 
-Agora volte para o navegador e atualize a barra de endereço [127.0.0.1:8000/tccs](127.0.0.1:8000/tccs).
+Agora, acesse o endereço [127.0.0.1:8000/tccs](127.0.0.1:8000/tccs) e analise o resultado. Repare que os TCCs listados são somente os TCCs cadastrados no Banco de Dados.
 
-Repare que os TCCs listados são somente os TCCs cadastrados no Banco de Dados.
-
-Ainda no código `views.py` da pasta `biblioteca` atualize a função `tcc_detalhes` para que a mesma pegue os dados também do banco de dados baseado no `id`.
+Ainda no código `views.py` da pasta `biblioteca`, atualize a função `tcc_detalhes` para que a mesma pegue os dados também do banco de dados baseado no `id`.
 
 ```python
 ...
@@ -678,11 +683,13 @@ def tcc_detalhes(request, id):
     return HttpResponse(template.render(context, request))
 ```
 
-Para mais informações, consulte a [documentação oficial do django](https://docs.djangoproject.com/en/4.2/topics/db/models/).
+Agora, acesse o endereço [127.0.0.1:8000/tccs](127.0.0.1:8000/tccs) e analise o resultado. Repare que os detalhes dos TCCs são os cadastrados no Banco de Dados.
+
+Para mais informações, consulte a [documentação oficial do django](https://docs.djangoproject.com/pt-br/5.0/topics/db/models/).
 
 ### Adicionando Controle de Usuários no Django
 
-Esta parte do tutorial foi baseada na [documentação oficial django](https://docs.djangoproject.com/en/4.2/topics/auth/default/) e também na [videoaula](https://www.youtube.com/watch?v=gdhiA6wObw0).
+Esta parte do tutorial foi baseada na [documentação oficial django](https://docs.djangoproject.com/pt-br/5.0/topics/auth/default/) e também na [videoaula](https://www.youtube.com/watch?v=gdhiA6wObw0).
 
 O Django possui já prontos diversos recursos para trabalhar com autenticação de usuários e controle de nível de acesso.
 
@@ -711,6 +718,31 @@ INSTALLED_APPS = [
 ...
 ```
 
+Agora, iremos criar uma pasta chamada `templates` dentro da aplicação `usuarios`. Nesta pasta, iremos criar um arquivo chamado `login.html` com o seguinte conteúdo:
+
+```html
+<h1>Login</h1>
+```
+
+Ainda nesta pasta, iremos criar também um arquivo chamado `cadastro.html` com o seguinte conteúdo:
+
+```html
+<h1>Cadastro</h1>
+```
+
+Em seguida, precisamos definir as views do nosso sistema de login e cadastro. Assim, digite o código abaixo no arquivo `views.py` na pasta `usuarios`:
+
+```python
+from django.http import HttpResponse
+from django.shortcuts import render
+
+def login(request):
+    return render(request, 'login.html')
+
+def cadastro(request):
+    return render(request, 'cadastro.html')
+```
+
 Agora, crie na pasta `usuarios` um arquivo chamado `urls.py` com o seguinte conteúdo:
 
 ```python
@@ -736,44 +768,19 @@ urlpatterns = [
 ]
 ```
 
-Agora, precisamos definir as views do nosso sistema de login e cadastro. Assim, digite o código abaixo no arquivo `views.py` na pasta `usuarios`:
-
-```python
-from django.http import HttpResponse
-from django.shortcuts import render
-
-def login(request):
-    return render(request, 'login.html')
-
-def cadastro(request):
-    return render(request, 'cadastro.html')
-```
-
-Agora, iremos criar uma pasta chamada `templates` dentro da aplicação `usuarios`. Nesta pasta, iremos criar um arquivo chamado `login.html` com o seguinte conteúdo:
-
-```html
-<h1>Login</h1>
-```
-
-Ainda nesta pasta, iremos criar também um arquivo chamado `cadastro.html` com o seguinte conteúdo:
-
-```html
-<h1>Cadastro</h1>
-```
-
 Agora, reinicie o servidor:
 
 ```bash
 python3 manage.py runserver
 ```
 
-Agora, volte para o navegador e atualize a barra de endereço [127.0.0.1:8000/](127.0.0.1:8000/). Navegue pelas abas Login e Cadastre-se.
+Por fim, acesse o endereço [127.0.0.1:8000/](127.0.0.1:8000/). Navegue pelas abas Login e Cadastre-se.
 
 ### Melhorando a Tela de Cadastro
 
-Agora, iremos definir melhor a tela de Cadastro.
+Agora, iremos melhorar a exibição da tela de Cadastro.
 
-No arquivo `cadastro.html` digite o seguinte:
+Assim, no arquivo `cadastro.html` digite o seguinte:
 
 ```html
 {% extends "base.html" %}
@@ -822,20 +829,20 @@ def cadastro(request): # atualize essa função
         return HttpResponse(usuario)
 ```
 
-Em seguida, acesse o servidor e efetue um cadastro e analise o resultado na tela.
+Em seguida, acesse o endereço [http://127.0.0.1:8000/auth/cadastro](http://127.0.0.1:8000/auth/cadastro) e efetue um cadastro e analise o resultado na tela.
 
-Até aqui, não efetuamos de fato um cadastro, apenas exibimos na tela a informação do usuário. 
+Até aqui, não efetuamos de fato um cadastro, apenas exibimos na tela a informação do usuário.
 
 Agora, iremos inserir as informações cadastradas no BD.
 
 Assim, atualize o código do método `cadastro` na `view.py`.
 
 ```python
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User  # faça essa inclusão
 
 ...
 
-def cadastro(request):
+def cadastro(request):  # atualize essa função
     if request.method == "GET":
         return render(request, 'cadastro.html')
     else: #senão será via método "POST":
@@ -845,7 +852,7 @@ def cadastro(request):
 
         user = User.objects.filter(username=usuario).first()
         if user:
-            return HttpResponse('Já existe um usuário com esse username')
+            return HttpResponse('Já existe um usuário com esse nome')
 
         # se não existir usuário com esse nome cria e salva o mesmo.
         user = User.objects.create_user(username=usuario, email=email, password=senha)
@@ -854,17 +861,17 @@ def cadastro(request):
         return HttpResponse('Usuário cadastrado com sucesso')
 ```
 
-Em seguida, acesse o servidor e efetue um cadastro e analise o resultado na tela e também no menu administrativo do Django. Efetue também cadastro de dois usuários com mesmo nome e analise o resultado.
+Em seguida, acesse o endereço [http://127.0.0.1:8000/auth/cadastro](http://127.0.0.1:8000/auth/cadastro) e efetue um cadastro e analise o resultado na tela e também no menu administrativo do Django. Efetue também cadastro de dois usuários com mesmo nome e analise o resultado.
 
 **OBS:** O Django não armazena senhas brutas (texto não criptografado) no modelo de usuário. Ele armazena apenas um hash da senha.
 
-Para mais detalhes sobre a classe `User` consulte a [documentação oficial](https://docs.djangoproject.com/en/4.2/topics/auth/default/).
+Para mais detalhes sobre a classe `User`, consulte a [documentação oficial](https://docs.djangoproject.com/pt-br/5.0/topics/auth/default/).
 
 ### Melhorando a Tela de Login
 
-Agora, iremos definir melhor a tela de Login.
+Agora, iremos melhorar a exibição da tela de Login.
 
-No arquivo `login.html` digite o seguinte:
+Assim, no arquivo `login.html` digite o seguinte:
 
 ```html
 {% extends "base.html" %}
@@ -895,9 +902,9 @@ No arquivo `login.html` digite o seguinte:
 Em seguida, atualize o código do método `login` na `view.py`.
 
 ```python
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate   # adicione essa linha
 ...
-def login(request): #atualize essa função
+def login(request):       #atualize essa função
     if request.method == "GET":
         return render(request, 'login.html')
     else:
@@ -911,7 +918,7 @@ def login(request): #atualize essa função
 
 ```
 
-Agora, acesse o servidor e efetue um login e analise o resultado na tela. Tente colocar um usuário válido e um usuário inválido.
+Em seguida, acesse o endereço [http://127.0.0.1:8000/auth/login](http://127.0.0.1:8000/auth/login) e efetue um login e analise o resultado na tela. Tente colocar um usuário válido e um usuário inválido.
 
 Em seguida, atualize o código do método cadastro na `view.py`.
 
@@ -934,7 +941,7 @@ def login(request):
             return HttpResponse('Usuario ou Senha inválidos')
 ```
 
-Agora, acesse o servidor e efetue um login e analise o resultado na tela. Tente colocar um usuário válido e um usuário inválido. Neste ponto ainda não dá para ver muita diferença entre os dois útlimos passos.
+Em seguida, acesse o endereço [http://127.0.0.1:8000/auth/login](http://127.0.0.1:8000/auth/login) e  efetue um login e analise o resultado na tela. Tente colocar um usuário válido e um usuário inválido. Neste ponto ainda não dá para ver muita diferença entre os dois útlimos passos.
 
 **Explicação:** As principais diferenças entre "authenticate" e "login" do django são destacadas a seguir:
 
@@ -963,7 +970,7 @@ def dashboard(request):
     return HttpResponse("Você precisa estar logado!")
 ```
 
-Em seguida, abra uma guia anônima do navegador e tente acessar a tela de dashboard. Na sequência, faça login na plataforma e então tente acessar o dashboard.
+Em seguida, abra uma guia anônima do navegador e acesse o endereço [http://127.0.0.1:8000](http://127.0.0.1:8000). Tente acessar a tela de dashboard. Na sequência, faça login na plataforma e então tente acessar o dashboard.
 
 Uma outra forma de fazer a mesma operação é utilizando o decorador `login_required`. Atualize o seu código da função dashborad em `view.py` da pasta `biblioteca` para o seguinte.
 
@@ -976,7 +983,7 @@ def dashboard(request):
     return HttpResponse(template.render())
 ```
 
-Em seguida, abra uma guia anônima do navegador e tente acessar a tela de dashboard. Perceba que portal redireciona para a tela de login, isso ocorre, pois colocamos isso no parâmetro `login_url`. Na sequência, faça login na plataforma e então tente acessar o dashboard.
+Em seguida, abra uma guia anônima do navegador e acesse o endereço [http://127.0.0.1:8000](http://127.0.0.1:8000). Tente acessar a tela de dashboard. Perceba que portal redireciona para a tela de login, isso ocorre, pois colocamos isso no parâmetro `login_url`. Na sequência, faça login na plataforma e então tente acessar o dashboard.
 
 ### Adicionando Botão de Logout no Sistema
 
@@ -988,14 +995,6 @@ Para isso, vá no arquivo `base.html` na pasta `templates` na pasta `biblioteca`
 ...
             <a href="/auth/cadastro">CADASTRE-SE</a> |
             <a href="/auth/logout">LOGOUT</a>
-...
-```
-
-Em seguida, vá no arquivo `urls.py` da pasta `usuarios` e adicione a seguinte rota.
-
-```python
-...
-    path('logout', views.logout, name='logout'),
 ...
 ```
 
@@ -1012,8 +1011,15 @@ def logout(request):
 
 **Explicação:** Quando você chama `logout()` do django ou `logout_django()` neste caso, os dados da sessão da solicitação atual são completamente limpos. Todos os dados existentes são removidos. Isso evita que outra pessoa use o mesmo navegador para fazer login e ter acesso aos dados da sessão do usuário anterior.
 
-Em seguida, acesse o sistema, faça logout, tente acessar a página de dashboard, faça login, tente acessar a página de dashboard. Analise as mensagens impressas.
+Em seguida, vá no arquivo `urls.py` da pasta `usuarios` e adicione a seguinte rota.
 
+```python
+...
+    path('logout', views.logout, name='logout'),
+...
+```
+
+Por fim, acesse o endereço [http://127.0.0.1:8000](http://127.0.0.1:8000). Faça logout e tente acessar a página de dashboard. Faça login e tente acessar a página de dashboard. Analise as mensagens impressas.
 
 ### Adicionando Bootstrap no Sistema
 
@@ -1095,31 +1101,13 @@ Em seguida, atualize o arquivo `cadastro.html` da pasta `usuario` e subpasta `te
 ...
 ```
 
-Em seguida, acesse a aplicação no navegador e análise a nova interface do sistema nas telas de login e cadastro.
+Por fim, acesse o endereço [http://127.0.0.1:8000](http://127.0.0.1:8000) e análise a nova interface do sistema nas telas de login e cadastro.
 
 ### Adicionando no Dashboard Informação do Usuário Logado
 
-Nessa etapa desejamos adicionar informações do usuário logado na tela do dashboard.
+Nessa etapa, desejamos adicionar informações do usuário logado na tela do dashboard.
 
-Primeiramente, iremos atualizar o método dashboard no arquivo `views.py` da pasta `biblioteca`.
-
-```python
-@login_required(login_url="/auth/login")
-def dashboard(request):
-    template = loader.get_template('dashboard.html')
-    # Você pode acessar o usuário logado através de request.user
-    user = request.user
-    # Agora você pode fazer qualquer coisa com o objeto 'user', como acessar seus campos, por exemplo:
-    username = user.username
-    email = user.email
-    context = {
-        'usuario': username,
-        'email': email,
-    }
-    return HttpResponse(template.render(context, request))
-```
-
-Em seguida, é necessário atualizar também o arquivo `dashboard.html` da `biblioteca` e subpasta `templates`.
+Primeiramente, é necessário atualizar o arquivo `dashboard.html` da `biblioteca` e subpasta `templates`.
 
 ```html
 {% extends "base.html" %}
@@ -1137,8 +1125,8 @@ Em seguida, é necessário atualizar também o arquivo `dashboard.html` da `bibl
     <div class="card" style="width:240px">
         <img class="card-img-top" src="{% static 'img_avatar.png' %}" alt="Imagem do card">
         <div class="card-body">
-          <h4 class="card-title"> {{ usuario }} </h4>
-          <p class="card-text">Email: {{ email }} </p>
+            <h4 class="card-title"> {{ usuario }} </h4>
+            <p class="card-text">Email: {{ email }} </p>
         </div>
     </div>
     </center>
@@ -1163,6 +1151,24 @@ Em seguida, é necessário atualizar também o arquivo `dashboard.html` da `bibl
 
 Em seguida, é necessário copiar o arquivo `img_avatar.png` da pasta `docs` para a pasta `staticfiles`.
 
+Em seguida, iremos atualizar o método dashboard no arquivo `views.py` da pasta `biblioteca`.
+
+```python
+@login_required(login_url="/auth/login")
+def dashboard(request):
+    template = loader.get_template('dashboard.html')
+    # Você pode acessar o usuário logado através de request.user
+    user = request.user
+    # Agora, você pode fazer qualquer coisa com o objeto 'user', como acessar seus campos, por exemplo:
+    username = user.username
+    email = user.email
+    context = {
+        'usuario': username,
+        'email': email,
+    }
+    return HttpResponse(template.render(context, request))
+```
+
 Em seguida, execute o seguinte comando abaixo:
 
 ```bash
@@ -1175,7 +1181,7 @@ Em seguida, reinicie o servidor:
 python3 manage.py runserver
 ```
 
-Analise a página de dashboard com diferentes usários logados no sistema.
+Por fim, acesse o endereço [http://127.0.0.1:8000](http://127.0.0.1:8000) e analise a página de dashboard com diferentes usários logados no sistema.
 
 ### Algumas Informações Adicionais
 
@@ -1198,7 +1204,7 @@ CREATE TABLE "biblioteca_livro" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT
 COMMIT;
 ```
 
-Para vermos com detalhes o conteúdo do BD podemos utilizar a ferramenta [DB Browser for SQLite](https://sqlitebrowser.org/). Assim, basta abrir o arquivo do BD chamado `db.sqlite3` que está na raiz do projeto.
+Para vermos com detalhes o conteúdo do BD, podemos utilizar a ferramenta [DB Browser for SQLite](https://sqlitebrowser.org/). Assim, basta abrir o arquivo do BD chamado `db.sqlite3` que está na raiz do projeto.
 
 ### Fim do Tutorial
 
