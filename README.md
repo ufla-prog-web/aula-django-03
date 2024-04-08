@@ -1033,6 +1033,7 @@ Para incorporar o bootstrap no nosso sistema primeiro, atualize o arquivo `base.
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="utf-8">
         <link rel="stylesheet" href="{% static 'mystyles.css' %}"> 
         <title>{% block titulo %}{% endblock %}</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">  
