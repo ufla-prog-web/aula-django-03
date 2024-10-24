@@ -21,8 +21,6 @@ function graficoBarras() {
     });
 }
 
-graficoBarras()
-
 function graficoPizza(){
     const ctx = document.getElementById('graficoPizza');
 
@@ -47,4 +45,6 @@ function graficoPizza(){
     });
 }
 
-graficoPizza()
+graficoBarras();
+
+graficoPizza();
