@@ -332,6 +332,277 @@ A aula anterior avançou até aqui.
 
 ### Melhorando a Tela do Projeto com Bootstrap
 
+Agora, iremos melhorar a aparência do nosso sistema utilizando o framework Bootstrap. Além de deixar a página mais bonita o Bootstrap a torna responsiva, se corretamente utilizado. Caso tenha dúvidas em como funciona o Bootstrap consulte a [documentação oficial](https://getbootstrap.com/docs/5.3/getting-started/introduction/) ou o [curso da w3schools](https://www.w3schools.com/bootstrap5/index.php).
+
+Para incorporar o bootstrap no nosso sistema primeiro, atualize o arquivo `base.html` da pasta `biblioteca` e subpasta `templates` conforme código abaixo:
+
+```html
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block titulo %}{% endblock %}</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'mystyles.css' %}">
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-dark">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="/">Portal Biblioteca</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="/">Principal</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/livros">Livros</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/tccs">TCCs</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/dashboard">Dashboard</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/auth/login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/auth/cadastro">Cadastre-se</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/auth/logout">Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        {% block conteudo %}
+        {% endblock %}
+
+        <footer class="text-white text-center p-3 mt-5">
+            <p>&copy; Portal Biblioteca. Todos os direitos reservados.</p>
+        </footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>
+```
+
+Em seguida, altere o código do arquivo `principal.html` para o código abaixo:
+
+```html
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block titulo %}
+    Portal Biblioteca
+{% endblock %}
+
+{% block conteudo %}
+    <main class="container mt-5">
+        <h1>Portal Biblioteca</h1>
+        <h4>Bem-vindo ao Portal da Biblioteca</h4>
+        <p>Explore nosso acervo de Livros e TCCs, veja seus dashboards e entre na sua conta para mais funcionalidades.</p>
+        <br>
+        <center>
+            <img src="{% static 'logo-portal.png' %}" alt="logo-portal" width="400" height="300">
+        </center>
+    </main>
+{% endblock %}
+```
+
+Em seguida, altere o código do arquivo `livros.html` para o código abaixo:
+
+```html
+{% extends "base.html" %}
+
+{% block titulo %}
+    Portal Biblioteca - Livros
+{% endblock %}
+
+{% block conteudo %}
+    <main class="container mt-5">
+        <h1>Livros</h1>
+        {% for l in livros %}
+            <div class="card">
+                <div class="card-header card-title-obra">
+                    <em>Livro:</em> {{ l.nome }}
+                </div>
+                <div class="card-body">
+                    <p class="card-title"><em>Autor:</em> {{ l.autor }}</p>
+                    <p class="card-title"><em>Ano:</em> {{ l.ano }}</p>
+                </div>
+            </div>
+            <br>
+        {% endfor %}
+        <br>
+        <br>
+        <br>
+    </main>
+{% endblock %}
+```
+
+Em seguida, altere o código do arquivo `tccs.html` para o código abaixo:
+
+```html
+{% extends "base.html" %}
+
+{% block titulo %}
+    Portal Biblioteca - TCCs
+{% endblock %}
+
+{% block conteudo %}
+    <main class="container mt-5">
+        <h1>Trabalhos de Conclusão de Curso</h1>
+        {% for tcc in tccs %}
+            <div class="card">
+                <div class="card-header card-title-obra">
+                    <em>Título:</em> {{ tcc.titulo }}
+                </div>
+                <div class="card-body">
+                    <p class="card-title"><em>Autor:</em> {{ tcc.autor }}</p>
+                    <center><a href="tccs/detalhes/{{ tcc.id }}" class="btn btn-primary">Ver Detalhes</a></center>
+                </div>
+            </div>
+            <br>
+        {% endfor %}
+        <br>
+        <br>
+        <br>
+    </main>
+{% endblock %}
+```
+
+Em seguida, altere o código do arquivo `tcc_detalhes.html` para o código abaixo:
+
+```html
+{% extends "base.html" %}
+
+{% block titulo %}
+    Portal Biblioteca - TCC - Detalhes
+{% endblock %}
+
+{% block conteudo %}
+    <main class="container mt-5">
+        <h1>Trabalho de Conclusão de Curso - Detalhes</h1>
+        <div class="card">
+            <div class="card-header card-title-obra">
+                <em>Título:</em> {{ tcc.titulo }}
+            </div>
+            <div class="card-body">
+                <p class="card-title"><em>Autor:</em> {{ tcc.autor }}</p>
+                <p class="card-title"><em>Orientador:</em> {{ tcc.orientador }}</p>
+                <p class="card-title"><em>Ano:</em> {{ tcc.ano }}</p>
+            </div>
+        </div>
+        <br>
+        <center><a href="/tccs" class="btn btn-primary">Voltar</a></center>
+    </main>
+{% endblock %}
+```
+
+Em seguida, altere o código do arquivo `dashboard.html` para o código abaixo:
+
+```html
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block titulo %}
+    Portal Biblioteca - Dashboard
+{% endblock %}
+
+{% block conteudo %}
+    <main class="container mt-5">
+        <h1>Dashboard</h1>
+        <p>Visualize aqui os gráficos e informações de dados do Portal Biblioteca.</p>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Dashboard 1</h5>
+                        <p class="card-text">Informações sobre o número de obras por categoria em gráfico de barras.</p>                        
+                        <div class="chart-container" style="position: relative; height:40vh;">
+                            <canvas id="graficoNumVolumes"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Dashboard 2</h5>
+                        <p class="card-text">Informações sobre o número de obras por categoria em gráfico de pizza.</p>
+                        <div class="chart-container" style="position: relative; height:40vh;">
+                            <canvas id="graficoPizza"></canvas>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{% static 'myscripts.js' %}"></script>
+{% endblock %}
+```
+
+Por fim, altere o código do arquivo `mystyles.css` para o código abaixo:
+
+```css
+body {
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  color: #343a40;
+}
+
+header {
+  background-color: #4D70EF;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #4D70EF;
+}
+
+.card:hover {
+  transform: scale(1.02);
+}
+
+.card-title-obra {
+  background-color: #375BDC;
+  color: white;
+}
+```
+
+Em seguida, execute o seguinte comando abaixo:
+
+```bash
+python3 manage.py collectstatic
+```
+
+Em seguida, execute o servidor com este comando:
+
+```bash
+python3 manage.py runserver
+```
+
+Por fim, acesse o endereço [http://127.0.0.1:8000](http://127.0.0.1:8000) e análise a nova interface do sistema.
+
 ### Criando o Primeiro Modelo no Django
 
 Até esse momento fizemos a nossa aplicação web com a interface de usuário, com URLs e algum processamento, mas não trabalhamos com Banco de Dados. Os dados estavam inseridos diretamente no código.
@@ -661,7 +932,7 @@ LANGUAGE_CODE = 'pt-BR'
 
 Por fim, acesse o endereço [127.0.0.1:8000/admin/](127.0.0.1:8000/admin/) e analise o resultado.
 
-### Carregando a Interface TCC com Dados do BD
+### Criando o Modelo de TCC
 
 Até aqui criamos apenas uma Tabela no BD que é Livro. Agora, iremos criar uma Tabela TCC no Modelo do BD.
 
@@ -738,9 +1009,11 @@ python3 manage.py runserver
 
 Em seguida, acesse o endereço [127.0.0.1:8000/admin/](127.0.0.1:8000/admin/).
 
+### Adicionando Novos TCCs
+
 Agora, podemos criar, atualizar e excluir TCCs em nosso banco de dados.
 
-Iremos adicionar mais três TCCs, clique no botão "ADICIONAR TCC" no canto superior direito:
+Iremos adicionar mais três TCCs, clique no botão "ADICIONAR TCC" no canto superior direito.
 
 Você receberá um formulário vazio onde poderá preencher os campos do TCC. Utilize as informações a seguir para preenchimento:
 
@@ -765,7 +1038,9 @@ Você receberá um formulário vazio onde poderá preencher os campos do TCC. Ut
 }
 ```
 
-Preencha os campos e clique em `SAVE`:
+Preencha os campos e clique em `SAVE`.
+
+### Pegando Dados de TCC do BD
 
 Agora, iremos atualizar a interface do TCC para puxar/pegar os dados do BD.
 
@@ -908,24 +1183,30 @@ Assim, no arquivo `cadastro.html` digite o seguinte:
 {% endblock %}
 
 {% block conteudo %}
-    <div class="mycard">
-        <h1>Cadastre-se</h1>
+    <main class="container mt-5">
         <center>
-        <form action="{% url 'cadastro' %}" method="POST">
-            {% csrf_token %}
-            Usuário: <input type="text" placeholder="Usuário ..." name="usuario">
-            <br>
-            <br>
-            E-mail: <input type="email" placeholder="E-mail ..." name="email">
-            <br>
-            <br>
-            Senha: <input type="password" placeholder="Senha ..." name="senha">
-            <br>
-            <br>
-            <input type="submit" value="Cadastrar">
-        </form>
+            <h1>Cadastre-se</h1>
+            <form action="{% url 'cadastro' %}" method="POST">
+                {% csrf_token %}
+                <div class="input-group">
+                    <span class="input-group-text">Usuário: </span>
+                    <input type="text" class="form-control" placeholder="Usuário ..." name="usuario">
+                </div>
+                <br>
+                <div class="input-group">
+                    <span class="input-group-text">E-mail: </span>
+                    <input type="email" class="form-control" placeholder="E-mail ..." name="email">
+                </div>
+                <br>
+                <div class="input-group">
+                    <span class="input-group-text">Senha: </span>
+                    <input type="password" class="form-control" placeholder="Senha ..." name="senha">
+                </div>
+                <br>
+                <input type="submit" value="Cadastrar" class="btn btn-primary">
+            </form>
         </center>
-    </div>
+    </main>
 {% endblock %}
 ```
 
@@ -989,7 +1270,7 @@ Para mais detalhes sobre a classe `User`, consulte a [documentação oficial](ht
 
 Agora, iremos melhorar a exibição da tela de Login.
 
-Assim, no arquivo `login.html` digite o seguinte:
+Assim, atualize o código do arquivo `login.html` para o seguinte:
 
 ```html
 {% extends "base.html" %}
@@ -999,21 +1280,25 @@ Assim, no arquivo `login.html` digite o seguinte:
 {% endblock %}
 
 {% block conteudo %}
-    <div class="mycard">
-        <h1>Login</h1>
+    <main class="container mt-5">
         <center>
-        <form action="{% url 'login' %}" method="POST">
-            {% csrf_token %}
-            Usuário: <input type="text" placeholder="Usuário ..." name="usuario">
-            <br>
-            <br>
-            Senha: <input type="password" placeholder="Senha ..." name="senha">
-            <br>
-            <br>
-            <input type="submit" value="Logar">
-        </form>
+            <h1>Login</h1>
+            <form action="{% url 'login' %}" method="POST">
+                {% csrf_token %}
+                <div class="input-group">
+                    <span class="input-group-text">Usuário: </span>
+                    <input type="text" class="form-control" placeholder="Usuário ..." name="usuario">
+                </div>
+                <br>
+                <div class="input-group">
+                    <span class="input-group-text">Senha: </span>
+                    <input type="password" class="form-control" placeholder="Senha ..." name="senha">
+                </div>
+                <br>
+                <input type="submit" value="Logar" class="btn btn-primary">
+            </form>
         </center>
-    </div>
+    </main>
 {% endblock %}
 ```
 
@@ -1059,7 +1344,7 @@ def login(request):
             return HttpResponse('Usuario ou Senha inválidos')
 ```
 
-Em seguida, acesse o endereço [http://127.0.0.1:8000/auth/login](http://127.0.0.1:8000/auth/login) e  efetue um login e analise o resultado na tela. Tente colocar um usuário válido e um usuário inválido. Neste ponto ainda não dá para ver muita diferença entre os dois útlimos passos.
+Em seguida, acesse o endereço [http://127.0.0.1:8000/auth/login](http://127.0.0.1:8000/auth/login) e  efetue um login e analise o resultado na tela. Tente colocar um usuário válido e um usuário inválido. Neste ponto, ainda não dá para ver muita diferença entre os dois últimos passos.
 
 **Explicação:** As principais diferenças entre "authenticate" e "login" do django são destacadas a seguir:
 
@@ -1103,20 +1388,11 @@ def dashboard(request):
 
 Em seguida, abra uma guia anônima do navegador e acesse o endereço [http://127.0.0.1:8000](http://127.0.0.1:8000). Tente acessar a tela de dashboard. Perceba que portal redireciona para a tela de login, isso ocorre, pois colocamos isso no parâmetro `login_url`. Na sequência, faça login na plataforma e então tente acessar o dashboard.
 
-### Adicionando Botão de Logout no Sistema
+### Adicionando Logout no Sistema
 
-Agora, iremos adicionar no nosso sistema um botão para efetuar o logout.
+Agora, iremos adicionar no nosso sistema o recurso de logout.
 
-Para isso, vá no arquivo `base.html` na pasta `templates` na pasta `biblioteca`. E edite o HTML adicionando as linhas destacadas.
-
-```html
-...
-            <a href="/auth/cadastro">CADASTRE-SE</a> |
-            <a href="/auth/logout">LOGOUT</a>
-...
-```
-
-Em seguida, vá no arquivo `views.py` da pasta `ùsuarios` e adicione o seguinte conteúdo:
+Para isso, vá no arquivo `views.py` da pasta `usuarios` e adicione o seguinte conteúdo:
 
 ```python
 from django.contrib.auth import logout as logout_django
@@ -1139,133 +1415,32 @@ Em seguida, vá no arquivo `urls.py` da pasta `usuarios` e adicione a seguinte r
 
 Por fim, acesse o endereço [http://127.0.0.1:8000](http://127.0.0.1:8000). Faça logout e tente acessar a página de dashboard. Faça login e tente acessar a página de dashboard. Analise as mensagens impressas.
 
-### Adicionando Bootstrap no Sistema
-
-Neste passo, iremos melhorar a aparência do nosso sistema utilizando o framework Bootstrap. Caso tenha dúvidas em como funciona o Bootstrap consulte a [documentação oficial](https://getbootstrap.com/docs/5.3/getting-started/introduction/) ou o [curso da w3schools](https://www.w3schools.com/bootstrap5/index.php).
-
-Para incorporar o bootstrap no nosso sistema primeiro, atualize o arquivo `base.html` da pasta `biblioteca` e subpasta `templates` conforme código abaixo:
-
-```html
-{% load static %}
-
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <link rel="stylesheet" href="{% static 'mystyles.css' %}"> 
-        <title>{% block titulo %}{% endblock %}</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">  
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    </head>
-    <body>
-        <div class="topnav">
-            <a href="/">PRINCIPAL</a> |
-            <a href="/livros">LIVROS</a> |
-            <a href="/tccs">TCCs</a> |
-            <a href="/dashboard">DASHBOARD</a> |
-            <a href="/auth/login">LOGIN</a> |
-            <a href="/auth/cadastro">CADASTRE-SE</a> |
-            <a href="/auth/logout">LOGOUT</a>
-        </div>
-        {% block conteudo %}
-        {% endblock %}
-    </body>
-</html>
-```
-
-Em seguida, atualize o arquivo `login.html` da pasta `usuario` e subpasta `templates`.
-
-```html
-...
-<form action="{% url 'login' %}" method="POST">
-    {% csrf_token %}
-    <div class="input-group">
-        <span class="input-group-text">Usuário: </span>
-        <input type="text" class="form-control" placeholder="Usuário ..." name="usuario">
-    </div>
-    <br>
-    <div class="input-group">
-        <span class="input-group-text">Senha: </span>
-        <input type="password" class="form-control" placeholder="Senha ..." name="senha">
-    </div>
-    <br>
-    <input type="submit" value="Logar" class="btn btn-primary">
-</form>
-...
-```
-
-Em seguida, atualize o arquivo `cadastro.html` da pasta `usuario` e subpasta `templates`.
-
-```html
-...
-<form action="{% url 'cadastro' %}" method="POST">
-    {% csrf_token %}
-    <div class="input-group">
-        <span class="input-group-text">Usuário: </span>
-        <input type="text" class="form-control" placeholder="Usuário ..." name="usuario">
-    </div>
-    <br>
-    <div class="input-group">
-        <span class="input-group-text">E-mail: </span>
-        <input type="email" class="form-control" placeholder="E-mail ..." name="email">
-    </div>
-    <br>
-    <div class="input-group">
-        <span class="input-group-text">Senha: </span>
-        <input type="password" class="form-control" placeholder="Senha ..." name="senha">
-    </div>
-    <br>
-    <input type="submit" value="Cadastrar" class="btn btn-primary">        
-</form>
-...
-```
-
-Por fim, acesse o endereço [http://127.0.0.1:8000](http://127.0.0.1:8000) e análise a nova interface do sistema nas telas de login e cadastro.
-
 ### Adicionando no Dashboard Informação do Usuário Logado
 
 Nessa etapa, desejamos adicionar informações do usuário logado na tela do dashboard.
 
-Primeiramente, é necessário atualizar o arquivo `dashboard.html` da `biblioteca` e subpasta `templates`.
+Primeiramente, é necessário atualizar parte do conteúdo do arquivo `dashboard.html` da `biblioteca` e subpasta `templates`.
 
 ```html
-{% extends "base.html" %}
-
-{% load static %}
-
-{% block titulo %}
-    Portal Biblioteca - Dashboard
-{% endblock %}
-
-{% block conteudo %}
-    <!-- Início do bloco de código adicionado -->
-    <center>
-    <br>
-    <div class="card" style="width:240px">
-        <img class="card-img-top" src="{% static 'img_avatar.png' %}" alt="Imagem do card">
-        <div class="card-body">
-            <h4 class="card-title"> {{ usuario }} </h4>
-            <p class="card-text">Email: {{ email }} </p>
+...
+    <main class="container mt-5">
+        <!-- Início do bloco de código adicionado -->
+        <div class="row">
+            <div class="col-md-12">
+                <center>
+                    <div class="card" style="width:180px">
+                        <img class="card-img-top" src="{% static 'img_avatar.png' %}" alt="Imagem do card" width="30">
+                        <div class="card-body">
+                            <h4 class="card-title"> {{ usuario }} </h4>
+                            <p class="card-text">Email: {{ email }} </p>
+                        </div>
+                    </div>
+                </center>
+            </div>
         </div>
-    </div>
-    </center>
-    <!-- Fim do bloco de código adicionado -->
-
-    <div class="mycard">
+        <!-- Fim do bloco de código adicionado -->
         <h1>Dashboard</h1>
-        <div>
-            <canvas id="graficoNumVolumes"></canvas>
-        </div>
-        <br>
-        <br>
-        <div>
-            <canvas id="graficoPizza"></canvas>
-        </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="{% static 'myscripts.js' %}"></script>
-{% endblock %}
+...
 ```
 
 Em seguida, é necessário copiar o arquivo `img_avatar.png` da pasta `docs` para a pasta `staticfiles`.
@@ -1288,7 +1463,7 @@ def dashboard(request):
     return HttpResponse(template.render(context, request))
 ```
 
-Em seguida, execute o seguinte comando abaixo:
+Em seguida, execute o comando abaixo:
 
 ```bash
 python3 manage.py collectstatic
