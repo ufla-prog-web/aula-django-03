@@ -19,7 +19,6 @@
 * [Fundamentos Teóricos](#fundamentos-teóricos)
 * [Objetivo da Aula](#objetivo-da-aula)
 * [Desenvolvimento do Projeto](#desenvolvimento-do-projeto)
-* [Próximas Etapas](#próximas-etapas)
 * [Créditos e Referências](#créditos-e-referências)
 
 ## Introdução
@@ -32,7 +31,7 @@ O objetivo desse projeto é criar um sistema para gestão de biblioteca.
 
 Este tutorial foi elaborado baseado no tutorial disponível no [curso de django da w3schools](https://www.w3schools.com/django/index.php) e também baseado na [documentação oficial do django](https://docs.djangoproject.com/pt-br/5.0/).
 
-A aula está estruturada em forma de tutorial, de forma que cada estudante vá replicando em seu computador os conceitos e recursos aqui mostrados. A aula mostra a evolução do código/solução para que os estudantes possa compreender como as diferentes tecnologias se conectam.
+A aula está estruturada em forma de tutorial, de forma que cada estudante vá replicando em seu computador os conceitos e recursos aqui mostrados. A aula mostra a evolução do código/solução para que os estudantes possam compreender como as diferentes tecnologias se conectam.
 
 ## Recursos Utilizados
 
@@ -69,6 +68,10 @@ A seguir estão listados os principais recursos utilizados no desenvolvimento de
     * [link do site do jinja](https://jinja.palletsprojects.com/en/3.1.x/)
 * Chart.js - Biblioteca JavaScript para Gráficos
     * [link do site do chart.js](https://www.chartjs.org/)
+* FontAwesome - Biblioteca CSS para Ícones
+     * [link do site do fontawesome](https://fontawesome.com/)
+* WhiteNoise - Biblioteca Python para Servir Arquivos Estáticos
+    * [link do site do whitenoise](https://whitenoise.readthedocs.io/)
 
 ### Ferramentas
 
@@ -312,10 +315,25 @@ Antes de executar o projeto, execute o comando para fazer as migrações:
 python3 manage.py migrate
 ```
 
+Uma saída semelhante a essa deverá ser exibida:
+
+```bash
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, sessions
+Running migrations:
+  No migrations to apply.
+```
+
 Em seguida, execute comando abaixo para fazer a cópia dos arquivos estáticos:
 
 ```bash
 python3 manage.py collectstatic
+```
+
+Uma saída semelhante a essa deverá ser exibida:
+
+```bash
+130 static files copied to '/media/jesimar/Workspace/Work3/1-Github/2-ufla-prog-web/aula-django-03/portal_biblioteca3/productionfiles'.
 ```
 
 Inicie a execução do projeto django criado:
@@ -330,7 +348,7 @@ Acesse através do navegdor web a página [http://127.0.0.1:8000/](http://127.0.
 
 A aula anterior avançou até aqui.
 
-### Melhorando a Tela do Projeto com Bootstrap
+### Melhorando a Aparência do Projeto com Bootstrap
 
 Agora, iremos melhorar a aparência do nosso sistema utilizando o framework Bootstrap. Além de deixar a página mais bonita o Bootstrap a torna responsiva, se corretamente utilizado. Caso tenha dúvidas em como funciona o Bootstrap consulte a [documentação oficial](https://getbootstrap.com/docs/5.3/getting-started/introduction/) ou o [curso da w3schools](https://www.w3schools.com/bootstrap5/index.php).
 
@@ -344,7 +362,7 @@ Para incorporar o bootstrap no nosso sistema primeiro, atualize o arquivo `base.
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block titulo %}{% endblock %}</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="{% static 'mystyles.css' %}">
     </head>
     <body>
@@ -361,22 +379,25 @@ Para incorporar o bootstrap no nosso sistema primeiro, atualize o arquivo `base.
                                 <a class="nav-link active" href="/">Principal</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/livros">Livros</a>
+                                <a class="nav-link active" href="/livros">Livros</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/tccs">TCCs</a>
+                                <a class="nav-link active" href="/tccs">TCCs</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/dashboard">Dashboard</a>
+                                <a class="nav-link active" href="/dashboard">Dashboard</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/auth/login">Login</a>
+                                <a class="nav-link active" href="/auth/login">Login</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/auth/cadastro">Cadastre-se</a>
+                                <a class="nav-link active" href="/auth/cadastro">Cadastre-se</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/auth/logout">Logout</a>
+                                <a class="nav-link active" href="/auth/logout">Logout</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="/admin">Admin</a>
                             </li>
                         </ul>
                     </div>
@@ -395,6 +416,81 @@ Para incorporar o bootstrap no nosso sistema primeiro, atualize o arquivo `base.
     </body>
 </html>
 ```
+
+Comentários sobre as alterações relacionadas ao Bootstrap: 
+
+1. Linha de Importação do CSS do Bootstrap:
+
+```html
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+```
+
+Esta linha importa o CSS do Bootstrap da versão 5.3.3 via CDN, o que aplica automaticamente os estilos do Bootstrap em toda a página, possibilitando o uso de classes CSS prontas para layout e formatação.
+
+2. Elementos com Classes do Bootstrap:
+
+* `<nav class="navbar navbar-expand-lg navbar-dark">`:
+
+    * `navbar`: Aplica o estilo básico de uma barra de navegação.
+    * `navbar-expand-lg`: Faz a barra de navegação ser expansível (colapsável) em telas menores, exibindo todos os itens em telas grandes.
+    * `navbar-dark`: Aplica cores para a navbar que são apropriadas para fundos escuros.
+
+* `<div class="container-fluid">`:
+
+    * `container-fluid`: Define um contêiner que ocupa toda a largura disponível, mantendo uma estrutura fluida e adaptável ao tamanho da tela.
+
+* `<a class="navbar-brand" href="/">Portal Biblioteca</a>`:
+
+    * `navbar-brand`: Aplica estilo a um elemento de marca (logo ou nome) na navbar, deixando-o em evidência.
+
+* `<button class="navbar-toggler"`:
+    
+    * `navbar-toggler`: Define um botão de colapso para a navbar em telas pequenas.
+    * `data-bs-toggle="collapse"` e `data-bs-target="#navbarNav"`: Atributos data usados pelo JavaScript do Bootstrap para controlar o comportamento de colapso.
+
+* `<span class="navbar-toggler-icon"></span>`:
+
+    * `navbar-toggler-icon`: Exibe o ícone de "hambúrguer", indicando que a navbar é expansível em dispositivos móveis.
+
+* `<div class="collapse navbar-collapse" id="navbarNav">`:
+
+    * `collapse`: Define que este conteúdo é colapsável.
+    * `navbar-collapse`: Estilo específico para o colapso em uma barra de navegação.
+    * `id="navbarNav"`: Identificador usado para associar o botão navbar-toggler a este conteúdo colapsável.
+
+* `<ul class="navbar-nav">`:
+
+    * `navbar-nav`: Aplica estilos para agrupar itens de navegação dentro da navbar.
+
+* `<li class="nav-item">`:
+
+    * `nav-item`: Aplica estilos a um item de navegação individual dentro da lista de navegação (`<ul>`).
+
+* `<a class="nav-link active" href="/">`:
+
+    * `nav-link`: Estilo padrão para um link de navegação dentro da navbar.
+    * `active`: Estilo que destaca o link atualmente ativo.
+
+* `<img src="{% static 'img_avatar.png' %}" alt="Avatar" style="width:40px;" class="rounded-pill">`:
+
+    * `rounded-pill`: Aplica um estilo de borda arredondada na imagem do avatar.
+
+3. Footer com Classes do Bootstrap:
+
+* `<footer class="text-white text-center p-3 mt-5">`
+
+    * `text-white`: Define o texto em branco.
+    * `text-center`: Centraliza o conteúdo do footer.
+    * `p-3`: Aplica padding de 3 unidades em todas as direções.
+    * `mt-5`: Aplica uma margem superior de 5 unidades, criando espaço entre o conteúdo acima e o footer.
+
+4. Importação do JavaScript do Bootstrap:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+```
+
+Essa linha importa o JavaScript do Bootstrap, essencial para os componentes interativos, como o botão de colapso da navbar e outros elementos interativos da interface.
 
 Em seguida, altere o código do arquivo `principal.html` para o código abaixo:
 
@@ -602,6 +698,93 @@ python3 manage.py runserver
 ```
 
 Por fim, acesse o endereço [http://127.0.0.1:8000](http://127.0.0.1:8000) e análise a nova interface do sistema.
+
+**OBS**: Caso a página não seja exibida corretamente tente apagar o histórico de navegação para limpar a cache.
+
+### Melhorando a Aparência do Projeto com FontAwesome
+
+Agora, iremos melhorar a aparência do nosso sistema utilizando os ícones da biblioteca CSS [FontAwesome](https://fontawesome.com/). Caso tenha dúvidas em como funciona essa biblioteca, consulte a [página oficial do FontAwesome](https://fontawesome.com/).
+
+Para incorporar o FontAwesome no nosso sistema primeiro, atualize o arquivo `base.html` da pasta `biblioteca` e subpasta `templates` conforme código abaixo:
+
+```html
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block titulo %}{% endblock %}</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <link rel="stylesheet" href="{% static 'mystyles.css' %}">
+    </head>
+    <body>
+        <header>            
+            <nav class="navbar navbar-expand-lg navbar-dark">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="/">Portal Biblioteca</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="/"><i class="fas fa-home"></i> Principal</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="/livros"><i class="fas fa-book"></i> Livros</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="/tccs"><i class="fas fa-graduation-cap"></i> TCCs</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="/dashboard"><i class="fas fa-chart-line"></i> Dashboard</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="/auth/login"><i class="fas fa-sign-in-alt"></i> Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="/auth/cadastro"><i class="fas fa-user-plus"></i> Cadastre-se</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="/auth/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="/admin"><i class="fa-solid fa-lock"></i> Admin</a>
+                            </li>
+                        </ul>
+                    </div>                    
+                </div>
+            </nav>
+        </header>
+
+        {% block conteudo %}
+        {% endblock %}
+
+        <footer class="text-white text-center p-3 mt-5">
+            <p>&copy; Portal Biblioteca. Todos os direitos reservados.</p>
+        </footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>
+```
+
+A seguir temos algumas explicações sobre as alterações no código HTML:
+
+* `<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">`: Adiciona o link para a CDN pública do Font Awesome, na versão 6.0.0-beta3. Com essa linha no `<head>`, você poderá utilizar os ícones sem precisar baixar a biblioteca localmente ou criar um kit.
+* `<i class="fas fa-home"></i>`: inclui o ícone de "casa" com a classe `fa-home`. A classe `fas` define que é um ícone sólido (do inglês, "Font Awesome Solid").
+
+**OBS:** Recomendamos criar uma conta no Font Awesome e criar um kit no desenvolvimento da sua plataforma web, ou seja, não utilize a CDN pública sugerida em seu projeto final.
+
+Em seguida, execute a aplicação.
+
+```bash
+python3 manage.py runserver
+```
+
+Para mais informações sobre o FontAwesome, consulte o [link](https://docs.fontawesome.com/web/setup/get-started) ou faça o [curso da w3schools](https://www.w3schools.com/icons/fontawesome5_intro.asp).
 
 ### Criando o Primeiro Modelo no Django
 
@@ -1080,404 +1263,317 @@ Agora, acesse o endereço [127.0.0.1:8000/tccs](127.0.0.1:8000/tccs) e analise o
 
 Para mais informações, consulte a [documentação oficial do django](https://docs.djangoproject.com/pt-br/5.0/topics/db/models/).
 
-### Adicionando Controle de Usuários no Django
+### Personalizando o Modelo de Página 404
 
-Esta parte do tutorial foi baseada na [documentação oficial django](https://docs.djangoproject.com/pt-br/5.0/topics/auth/default/) e também na [videoaula](https://www.youtube.com/watch?v=gdhiA6wObw0).
+Se você tentar acessar uma página que não existe (será gerado um erro 404), então o Django o direcionará para uma visualização interna que lida com erros 404.
 
-O Django possui já prontos diversos recursos para trabalhar com autenticação de usuários e controle de nível de acesso.
+Você aprenderá como personalizar essa visualização 404 mais adiante, mas primeiro, tente acessar uma página que não existe.
 
-Agora, iremos adicionar em nosso projeto um sistema de gestão de usuários. Para criarmos na sequência as telas de login e cadastro na plataforma.
+Na janela do navegador, digite a seguinte URL [http://127.0.0.1:8000/blabla](http://127.0.0.1:8000/blabla).
 
-Para isso, iremos criar uma outra aplicação/aplicativo web dentro do nosso projeto. Assim, digite o seguinte conteúdo.
+Você obterá o seguinte resultado:
 
-```bash
-python3 manage.py startapp usuarios
-```
+![Sistema Objetivo da Aula](./docs/erro404-1.png)
 
-Agora, atualize a lista `INSTALLED_APPS` em `settings.py` na pasta `portal_biblioteca`:
+Isso ocorreu, pois a variável `DEBUG` está definida como `True` nas suas configurações no arquivo `settings.py`. 
+
+No entanto, a forma esperada de saída de erro, quando o sistema estiver em produção, é a exibida abaixo: 
+ 
+![Sistema Objetivo da Aula](./docs/erro404-2.png)
+
+Para obter uma saída semelhante a segunda forma (correta), você deve definir a variável `DEBUG` como `False`. Assim, você será direcionado para o modelo Django 404 integrado.
+
+Isso é feito no arquivo `settings.py`, onde você também deve especificar o nome do host de onde seu projeto é executado:
 
 ```python
 ...
-INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'biblioteca',
-    'usuarios', #adicone seu app aqui 
-]
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = False
+
+ALLOWED_HOSTS = ['*']
 ...
 ```
 
-Agora, iremos criar uma pasta chamada `templates` dentro da aplicação `usuarios`. Nesta pasta, iremos criar um arquivo chamado `login.html` com o seguinte conteúdo:
+**Importante**: Quando `DEBUG = False`, o Django exige que você especifique os hosts nos quais permitirá que este projeto Django seja executado.
+
+Quando o sistema estiver em produção, isso deve ser substituído por um nome de domínio adequado, semelhante abaixo:
+
+```python
+ALLOWED_HOSTS = ['yourdomain.com']
+```
+
+Mas, como ainda estamos em desenvolvimento, então podemos colocar qualquer domínio como abaixo:
+
+```python
+ALLOWED_HOSTS = ['*']
+```
+
+Escolhemos `*`, o que significa que qualquer endereço tem permissão para hospedar este site. Isso deve ser alterado para um nome de domínio real quando você implantar seu projeto em um servidor público.
+
+O Django procurará um arquivo chamado `404.html` na pasta `templates` e o exibirá quando houver um erro 404. Se esse arquivo não existir, o Django mostrará o "Not Found" que você viu no exemplo acima.
+
+Para personalizar esta mensagem, basta criar um arquivo na pasta `templates` e nomeá-lo `404.html`, e preenchê-lo com o que quiser. Utize o exemplo a seguir:
 
 ```html
-<h1>Login</h1>
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block titulo %}
+    Portal Biblioteca - Erro 404
+{% endblock %}
+
+{% block conteudo %}
+    <main class="container mt-5">
+        <h1>Portal Biblioteca</h1>
+        <h4>Página não encontrada</h4>
+        <p>Não existe uma página para a URL solicitada.</p>
+    </main>
+{% endblock %}
 ```
 
-Ainda nesta pasta, iremos criar também um arquivo chamado `cadastro.html` com o seguinte conteúdo:
-
-```html
-<h1>Cadastro</h1>
-```
-
-Em seguida, precisamos definir as views do nosso sistema de login e cadastro. Assim, digite o código abaixo no arquivo `views.py` na pasta `usuarios`:
-
-```python
-from django.http import HttpResponse
-from django.shortcuts import render
-
-def login(request):
-    return render(request, 'login.html')
-
-def cadastro(request):
-    return render(request, 'cadastro.html')
-```
-
-Agora, crie na pasta `usuarios` um arquivo chamado `urls.py` com o seguinte conteúdo:
-
-```python
-from django.urls import path
-from . import views
-
-urlpatterns = [
-    path('login', views.login, name='login'),
-    path('cadastro', views.cadastro, name='cadastro'),
-]
-```
-
-Agora, precisamos informar a nossa aplicação principal da existência dessas novas URLs. Assim, edite o código `urls.py` da pasta `porta_biblioteca` da seguinte forma:
-
-```python
-from django.contrib import admin
-from django.urls import include, path
-
-urlpatterns = [
-    path('', include('biblioteca.urls')),
-    path('auth/', include('usuarios.urls')),   #adicione essa linha aqui
-    path('admin/', admin.site.urls),
-]
-```
-
-Agora, reinicie o servidor:
+Em seguida, execute o servidor.
 
 ```bash
 python3 manage.py runserver
 ```
 
-Por fim, acesse o endereço [127.0.0.1:8000/](127.0.0.1:8000/). Navegue pelas abas Login e Cadastre-se.
+Na janela do navegador, digite na barra de endereço uma URL inexistente e você obterá o modelo 404 personalizado. Exemplo: [http://127.0.0.1:8000/blabla](http://127.0.0.1:8000/blabla).
 
-### Melhorando a Tela de Cadastro
+![Sistema Objetivo da Aula](./docs/erro404-4.png)
 
-Agora, iremos melhorar a exibição da tela de Cadastro.
+No entanto, esse modelo deveria aparecer como abaixo. Precisaremos incluir uma biblioteca externa para que o Django consiga servir arquivos estáticos.
 
-Assim, no arquivo `cadastro.html` digite o seguinte:
+![Sistema Objetivo da Aula](./docs/erro404-3.png)
 
-```html
-{% extends "base.html" %}
+### Manipulando Arquivos Estáticos
 
-{% block titulo %}
-    Portal Biblioteca - Cadastro
-{% endblock %}
+Devido a modificação anterior `DEBUG = False`, o Django passou a não mais servir arquivos estáticos, pelo menos não em produção. Para resolver isso, teremos que usar uma biblioteca de terceiros.
 
-{% block conteudo %}
-    <main class="container mt-5">
-        <center>
-            <h1>Cadastre-se</h1>
-            <form action="{% url 'cadastro' %}" method="POST">
-                {% csrf_token %}
-                <div class="input-group">
-                    <span class="input-group-text">Usuário: </span>
-                    <input type="text" class="form-control" placeholder="Usuário ..." name="usuario">
-                </div>
-                <br>
-                <div class="input-group">
-                    <span class="input-group-text">E-mail: </span>
-                    <input type="email" class="form-control" placeholder="E-mail ..." name="email">
-                </div>
-                <br>
-                <div class="input-group">
-                    <span class="input-group-text">Senha: </span>
-                    <input type="password" class="form-control" placeholder="Senha ..." name="senha">
-                </div>
-                <br>
-                <input type="submit" value="Cadastrar" class="btn btn-primary">
-            </form>
-        </center>
-    </main>
-{% endblock %}
+Existem muitas alternativas, mostraremos como usar uma biblioteca Python chamada `WhiteNoise`.
+
+Para instalar o WhiteNoise em seu ambiente virtual, digite o comando abaixo:
+
+```bash
+pip3 install whitenoise
 ```
 
-**Explicação:** O código acima cria um formulário com os seguintes campos: usuário, email, senha e botão cadastrar. Neste formulário, quando clicado no botão cadastrar enviará uma ação via método POST para a url de nome `cadastro` (nome definida no arquivo `url.py`). A tag `csrf_token` é necessária para fazer uma verificação de segurança.
-
-**Explicação:** O CSRF Token, que significa "Cross-Site Request Forgery Token" (Token de Proteção contra Solicitação Falsificada entre Sites), é uma medida de segurança utilizada em aplicações da web para proteger contra ataques CSRF (Cross-Site Request Forgery), também conhecidos como ataques de falsificação de solicitação entre sites. Um ataque CSRF ocorre quando um invasor engana um usuário autenticado a executar ações indesejadas em um site sem o conhecimento ou consentimento do usuário. Isso é feito explorando o fato de que os navegadores da web geralmente incluem automaticamente cookies de sessão em todas as solicitações para um domínio, incluindo solicitações maliciosas.
-
-Em seguida, atualize o código do método cadastro na `view.py`.
+Para que o Django saiba que você deseja executar o WhitNoise, você precisa especificá-lo na lista `MIDDLEWARE` do arquivo `settings.py`:
 
 ```python
 ...
-def cadastro(request): # atualize essa função
-    if request.method == "GET":
-        return render(request, 'cadastro.html')
-    else: #senão será via método "POST":
-        usuario = request.POST.get('usuario')
-        email = request.POST.get('email')
-        senha = request.POST.get('senha')
-        return HttpResponse(usuario)
-```
-
-Em seguida, acesse o endereço [http://127.0.0.1:8000/auth/cadastro](http://127.0.0.1:8000/auth/cadastro) e efetue um cadastro e analise o resultado na tela.
-
-Até aqui, não efetuamos de fato um cadastro, apenas exibimos na tela a informação do usuário.
-
-Agora, iremos inserir as informações cadastradas no BD.
-
-Assim, atualize o código do método `cadastro` na `view.py`.
-
-```python
-from django.contrib.auth.models import User  # faça essa inclusão
-
-...
-
-def cadastro(request):  # atualize essa função
-    if request.method == "GET":
-        return render(request, 'cadastro.html')
-    else: #senão será via método "POST":
-        usuario = request.POST.get('usuario')
-        email = request.POST.get('email')
-        senha = request.POST.get('senha')
-
-        user = User.objects.filter(username=usuario).first()
-        if user:
-            return HttpResponse('Já existe um usuário com esse nome')
-
-        # se não existir usuário com esse nome cria e salva o mesmo.
-        user = User.objects.create_user(username=usuario, email=email, password=senha)
-        user.save()
-
-        return HttpResponse('Usuário cadastrado com sucesso')
-```
-
-Em seguida, acesse o endereço [http://127.0.0.1:8000/auth/cadastro](http://127.0.0.1:8000/auth/cadastro) e efetue um cadastro e analise o resultado na tela e também no menu administrativo do Django. Efetue também cadastro de dois usuários com mesmo nome e analise o resultado.
-
-**OBS:** O Django não armazena senhas brutas (texto não criptografado) no modelo de usuário. Ele armazena apenas um hash da senha.
-
-Para mais detalhes sobre a classe `User`, consulte a [documentação oficial](https://docs.djangoproject.com/pt-br/5.0/topics/auth/default/).
-
-### Melhorando a Tela de Login
-
-Agora, iremos melhorar a exibição da tela de Login.
-
-Assim, atualize o código do arquivo `login.html` para o seguinte:
-
-```html
-{% extends "base.html" %}
-
-{% block titulo %}
-    Portal Biblioteca - Login
-{% endblock %}
-
-{% block conteudo %}
-    <main class="container mt-5">
-        <center>
-            <h1>Login</h1>
-            <form action="{% url 'login' %}" method="POST">
-                {% csrf_token %}
-                <div class="input-group">
-                    <span class="input-group-text">Usuário: </span>
-                    <input type="text" class="form-control" placeholder="Usuário ..." name="usuario">
-                </div>
-                <br>
-                <div class="input-group">
-                    <span class="input-group-text">Senha: </span>
-                    <input type="password" class="form-control" placeholder="Senha ..." name="senha">
-                </div>
-                <br>
-                <input type="submit" value="Logar" class="btn btn-primary">
-            </form>
-        </center>
-    </main>
-{% endblock %}
-```
-
-Em seguida, atualize o código do método `login` na `view.py`.
-
-```python
-from django.contrib.auth import authenticate   # adicione essa linha
-...
-def login(request):       #atualize essa função
-    if request.method == "GET":
-        return render(request, 'login.html')
-    else:
-        usuario = request.POST.get('usuario')
-        senha = request.POST.get('senha')
-        user = authenticate(username=usuario, password=senha)
-        if user:
-            return HttpResponse('Autenticado')
-        else:
-            return HttpResponse('Usuario ou Senha inválidos')
-
-```
-
-Em seguida, acesse o endereço [http://127.0.0.1:8000/auth/login](http://127.0.0.1:8000/auth/login) e efetue um login e analise o resultado na tela. Tente colocar um usuário válido e um usuário inválido.
-
-Em seguida, atualize o código do método cadastro na `view.py`.
-
-```python
-from django.contrib.auth import login as login_django #importe também o login
-
-...
-def login(request):
-    if request.method == "GET":
-        return render(request, 'login.html')
-    else:
-        usuario = request.POST.get('usuario')
-        senha = request.POST.get('senha')
-        
-        user = authenticate(username=usuario, password=senha)
-        if user:
-            login_django(request, user) # linha adicionada
-            return HttpResponse('Autenticado')
-        else:
-            return HttpResponse('Usuario ou Senha inválidos')
-```
-
-Em seguida, acesse o endereço [http://127.0.0.1:8000/auth/login](http://127.0.0.1:8000/auth/login) e  efetue um login e analise o resultado na tela. Tente colocar um usuário válido e um usuário inválido. Neste ponto, ainda não dá para ver muita diferença entre os dois últimos passos.
-
-**Explicação:** As principais diferenças entre "authenticate" e "login" do django são destacadas a seguir:
-
-**authenticate:**
-* O método "authenticate" é uma função fornecida pelo Django que é usada para verificar as credenciais de um usuário em um sistema de autenticação.
-* Ele recebe as informações de login do usuário, como nome de usuário e senha, e verifica se essas informações correspondem a um usuário registrado no sistema.
-* Se as credenciais estiverem corretas, o método "authenticate" retornará um objeto de usuário válido que representa o usuário autenticado. Caso contrário, retornará "None".
-
-**login:**
-* O método "login" refere-se ao processo de estabelecer uma sessão de usuário autenticada em um aplicativo da web após a autenticação bem-sucedida.
-* O Django fornece uma função chamada "login" que permite que você associe um objeto de usuário autenticado a uma sessão. Isso é importante para manter o estado de autenticação do usuário durante a sessão.
-* A função "login" normalmente é usada após o usuário ser autenticado com sucesso usando o "authenticate".
-
-### Disponibilizando o Dashboard Apenas para Usuários Logados
-
-Agora, iremos permitir que a visualização dos dashboards esteja disponível apenas se o usuário estiver logado na plataforma.
-
-Dessa maneira, atualize o código da função dashboard em `view.py` da pasta `biblioteca` para o seguinte.
-
-```python
-...
-def dashboard(request):
-    if request.user.is_authenticated:
-        template = loader.get_template('dashboard.html')
-        return HttpResponse(template.render())
-    return HttpResponse("Você precisa estar logado!")
-```
-
-Em seguida, abra uma guia anônima do navegador e acesse o endereço [http://127.0.0.1:8000](http://127.0.0.1:8000). Tente acessar a tela de dashboard. Na sequência, faça login na plataforma e então tente acessar o dashboard.
-
-Uma outra forma de fazer a mesma operação é utilizando o decorador `login_required`. Atualize o seu código da função dashborad em `view.py` da pasta `biblioteca` para o seguinte.
-
-```python
-from django.contrib.auth.decorators import login_required
-...
-@login_required(login_url="/auth/login")
-def dashboard(request):
-    template = loader.get_template('dashboard.html')
-    return HttpResponse(template.render())
-```
-
-Em seguida, abra uma guia anônima do navegador e acesse o endereço [http://127.0.0.1:8000](http://127.0.0.1:8000). Tente acessar a tela de dashboard. Perceba que portal redireciona para a tela de login, isso ocorre, pois colocamos isso no parâmetro `login_url`. Na sequência, faça login na plataforma e então tente acessar o dashboard.
-
-### Adicionando Logout no Sistema
-
-Agora, iremos adicionar no nosso sistema o recurso de logout.
-
-Para isso, vá no arquivo `views.py` da pasta `usuarios` e adicione o seguinte conteúdo:
-
-```python
-from django.contrib.auth import logout as logout_django
-...
-
-def logout(request):
-    logout_django(request)
-    return HttpResponse('Usuario deslogado do sistema!')
-```
-
-**Explicação:** Quando você chama `logout()` do django ou `logout_django()` neste caso, os dados da sessão da solicitação atual são completamente limpos. Todos os dados existentes são removidos. Isso evita que outra pessoa use o mesmo navegador para fazer login e ter acesso aos dados da sessão do usuário anterior.
-
-Em seguida, vá no arquivo `urls.py` da pasta `usuarios` e adicione a seguinte rota.
-
-```python
-...
-    path('logout', views.logout, name='logout'),
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',   # linha adicionada
+]
 ...
 ```
 
-Por fim, acesse o endereço [http://127.0.0.1:8000](http://127.0.0.1:8000). Faça logout e tente acessar a página de dashboard. Faça login e tente acessar a página de dashboard. Analise as mensagens impressas.
-
-### Adicionando no Dashboard Informação do Usuário Logado
-
-Nessa etapa, desejamos adicionar informações do usuário logado na tela do dashboard.
-
-Primeiramente, é necessário atualizar parte do conteúdo do arquivo `dashboard.html` da `biblioteca` e subpasta `templates`.
-
-```html
-...
-    <main class="container mt-5">
-        <!-- Início do bloco de código adicionado -->
-        <div class="row">
-            <div class="col-md-12">
-                <center>
-                    <div class="card" style="width:180px">
-                        <img class="card-img-top" src="{% static 'img_avatar.png' %}" alt="Imagem do card" width="30">
-                        <div class="card-body">
-                            <h4 class="card-title"> {{ usuario }} </h4>
-                            <p class="card-text">Email: {{ email }} </p>
-                        </div>
-                    </div>
-                </center>
-            </div>
-        </div>
-        <!-- Fim do bloco de código adicionado -->
-        <h1>Dashboard</h1>
-...
-```
-
-Em seguida, é necessário copiar o arquivo `img_avatar.png` da pasta `docs` para a pasta `staticfiles`.
-
-Em seguida, iremos atualizar o método dashboard no arquivo `views.py` da pasta `biblioteca`.
-
-```python
-@login_required(login_url="/auth/login")
-def dashboard(request):
-    template = loader.get_template('dashboard.html')
-    # Você pode acessar o usuário logado através de request.user
-    user = request.user
-    # Agora, você pode fazer qualquer coisa com o objeto 'user', como acessar seus campos, por exemplo:
-    username = user.username
-    email = user.email
-    context = {
-        'usuario': username,
-        'email': email,
-    }
-    return HttpResponse(template.render(context, request))
-```
-
-Em seguida, execute o comando abaixo:
+Há mais uma ação que você precisa executar antes de poder servir o arquivo estático. Você precisa coletar todos os arquivos estáticos utilizando o comando abaixo.
 
 ```bash
 python3 manage.py collectstatic
 ```
 
-Em seguida, reinicie o servidor:
+Em seguida, execute o servidor.
 
 ```bash
 python3 manage.py runserver
 ```
 
-Por fim, acesse o endereço [http://127.0.0.1:8000](http://127.0.0.1:8000) e analise a página de dashboard com diferentes usários logados no sistema.
+Em modo de produção, o WhiteNoise será responsável por servir os arquivos estáticos automaticamente. Acesse um arquivo estático (por exemplo, [http://127.0.0.1:8000/static/mystyles.css](http://127.0.0.1:8000/static/mystyles.css)) para confirmar que o WhiteNoise está servindo o conteúdo corretamente.
 
-### Algumas Informações Adicionais
+Na janela do navegador, digite na barra de endereço uma URL inexistente e você obterá o modelo 404 personalizado. Exemplo: [http://127.0.0.1:8000/blabla](http://127.0.0.1:8000/blabla).
+
+![Sistema Objetivo da Aula](./docs/erro404-3.png)
+
+### Exibindo Dashboard com Dados do BD
+
+Agora, iremos atualizar o nosso código para que o dashboard exibido contenha gráficos com dados vindo do BD e não gráficos com dados fixados em código.
+Para isso, precisamos fazer a seguinte atualização no arquivo `views.py`.
+
+```python
+...
+def dashboard(request):
+    template = loader.get_template('dashboard.html')
+    context = {
+        'labels': ['Livros', 'TCCs', 'Dissertações', 'Teses', 'Apostilas', 'Jornais'],
+        'data': [12, 19, 8, 5, 2, 10]
+    }
+    return HttpResponse(template.render(context, request))
+```
+
+**OBS**: Repare que os dados ainda estão fixos, mas agora vem do template via Python.
+
+Em seguida, precisamos atualizar o arquivo `dashboard.html` conforme abaixo:
+
+```html
+...
+    <script> <!-- Incluí esse script -->
+        <!-- Cria variáveis globais para vindas do template para serem acessadas no JS externo "myscripts.js". -->
+        const vlabels = {{ labels|safe }};
+        const vdata = {{ data|safe }};
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{% static 'myscripts.js' %}"></script>
+...
+```
+
+**Explicação**: Quando o JavaScript está em um arquivo separado, você não pode usar diretamente as tags de template do Django (`{{ }}`) dentro do arquivo. Uma solução é definir as variáveis no próprio HTML e, em seguida, acessá-las no arquivo JavaScript externo. No seu template HTML, defina as variáveis de dados (`vlabels` e `vdata`) dentro de um bloco `<script>` para que fiquem disponíveis globalmente. O `| safe` é um filtro do Django usado para garantir que os dados sejam renderizados sem qualquer escape adicional de HTML. Esse filtro é importante quando você está passando dados JSON ou arrays para JavaScript, pois ele impede que o Django faça a escapada automática (substituindo, por exemplo, `"` por `&quot;`). Sem o filtro `|safe`, o Django escaparia caracteres especiais nos dados, resultando em valores incorretos ou erro de sintaxe.
+
+Em seguida, precisamos atualizar o arquivo `myscripts.js` conforme abaixo:
+
+```javascript
+function graficoBarras() {
+    const ctx = document.getElementById('graficoNumVolumes');
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+        labels: vlabels, // Alterei aqui. Acessa variável global 'labels'
+        datasets: [{
+            label: 'Número de Volumes',
+            data: vdata,  // Alterei aqui. Acessa a variável global 'data'
+            borderWidth: 1
+        }]
+        },
+        options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+        }
+    });
+}          
+
+function graficoPizza(){
+    const ctx = document.getElementById('graficoPizza');
+
+    new Chart(ctx, {
+        type: 'pie',
+        data: {
+        labels: vlabels, // Alterei aqui. Acessa variável global 'labels'
+        datasets: [{
+            label: 'Número de Volumes',
+            data: vdata, // Alterei aqui. Acessa a variável global 'data'
+            backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(54, 162, 235)',
+                'rgb(255, 205, 86)',
+                'rgb(80, 60, 200)',
+                'rgb(255, 100, 86)',
+                'rgb(54, 255, 150)'
+            ],
+            hoverOffset: 8
+        }]
+        }
+    });
+}
+
+graficoBarras();
+
+graficoPizza();
+```
+
+**Explicação**: No arquivo `myscripts.js`, você pode agora acessar as variáveis `vlabels` e `vdata` diretamente, pois elas foram definidas no escopo global do HTML.
+
+Em seguida, execute comando abaixo para fazer a cópia dos arquivos estáticos alterados:
+
+```bash
+python3 manage.py collectstatic
+```
+
+Em seguida, execução do projeto:
+
+```bash
+python3 manage.py runserver
+```
+
+Após essas alterações, os dados exibidos nos gráficos vêem da View e não do JavaScript, mas ainda continuam fixos. Experimente alterar os valores do quantitativo de livros no arquivo `views.py` e analise o resultado.
+
+Agora, iremos pegar os dados de uma nova tabela do BD. Para issso, no arquivo `models.py` inclua o seguinte código:
+
+```python
+...
+class QuantitativoMateriais(models.Model):
+    livros = models.IntegerField()
+    tccs = models.IntegerField()
+    dissertacoes = models.IntegerField()
+    teses = models.IntegerField()
+    apostilas = models.IntegerField()
+    jornais = models.IntegerField()
+
+    def __str__(self):
+        return f"{self.livros} - {self.tccs} - {self.dissertacoes} - {self.teses} - {self.apostilas} - {self.jornais}"
+```
+
+Esse código cria uma tabela chamada `QuantitativoMateriais` com o quantitativo de livros, TCCs, dissertações, teses, apostilas e jornais presentes na Biblioteca.
+
+No arquivo, `admin.py` inclua o seguinte código: 
+
+```python
+...
+from .models import QuantitativoMateriais
+...
+class QuantitativoMateriaisAdmin(admin.ModelAdmin):
+    list_display = ("id", "livros", "tccs", "dissertacoes", "teses", "apostilas", "jornais")
+...
+admin.site.register(QuantitativoMateriais, QuantitativoMateriaisAdmin)
+```
+
+Esse código informa ao Django que essa tabela deverá estar disponível no ambiente administrativo.
+
+Agora, execute o comando para criar as migrações:
+
+```bash
+python3 manage.py makemigrations
+```
+
+Agora, execute o comando para fazer as migrações:
+
+```bash
+python3 manage.py migrate
+```
+
+Nessa etapa, iremos agora executar o projeto e, em seguida, cadastrar um quantitativo de materiais na tabela criada.
+
+```bash
+python3 manage.py runserver
+```
+
+Por fim, no arquivo `views.py` inclua o seguinte código:
+
+```python
+...
+from .models import QuantitativoMateriais
+...
+def dashboard(request):
+    qtd = QuantitativoMateriais.objects.all().values()
+    template = loader.get_template('dashboard.html')
+    v = qtd[0]
+    context = {
+        'labels': ['Livros', 'TCCs', 'Dissertações', 'Teses', 'Apostilas', 'Jornais'],
+        'data': [v['livros'], v['tccs'], v['dissertacoes'], v['teses'], v['apostilas'], v['jornais']]
+    }
+    return HttpResponse(template.render(context, request))
+```
+
+Em seguida, execução do projeto:
+
+```bash
+python3 manage.py runserver
+```
+
+Avalie os gráficos mostrados. Atualize os valodres da tabela de quantitativo e veja a mudança refletida nos gráficos.
+
+### Informações Adicionais sobre BD
 
 Caso queira ver o que foi feito no BD, basta digitar o comando abaixo com o número da migração:
 
@@ -1499,12 +1595,6 @@ COMMIT;
 ```
 
 Para vermos com detalhes o conteúdo do BD, podemos utilizar a ferramenta [DB Browser for SQLite](https://sqlitebrowser.org/). Assim, basta abrir o arquivo do BD chamado `db.sqlite3` que está na raiz do projeto.
-
-## Próximas Etapas
-
-<a href="#índice"><img align="right" width="15" height="15" src="./docs/up-arrow.png" alt="Voltar para topo"></a>
-
-Agora que você sabe como construir uma página web utilizando o framework Django, utilize os conhecimentos e exemplos aqui apresentados para fazer o seu trabalho final de implementação.
 
 ## Créditos e Referências
 
