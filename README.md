@@ -197,7 +197,7 @@ Fonte: [https://medium.com/@mochammadagusyahya](https://medium.com/@mochammadagu
 
 <a href="#índice"><img align="right" width="15" height="15" src="./docs/up-arrow.png" alt="Voltar para topo"></a>
 
-O objetivo desta aula é continuar a construção do projeto portal de biblioteca usando o framework Python Django. Aprenderemos a criar models, views e templates. Cadastraremos dados nos modelos criados. As informações exibidas na interface agora são carregadas do BD e não mais de dados fake na views. Incluiremos no projeto o framework Bootstrap de forma a melhorar a visualização da página. Incluiremos a biblioteca FontAwesome para incluir ícones.
+O objetivo desta aula é dar continuidade à construção do projeto Portal da Biblioteca utilizando o framework Python Django. Aprenderemos a criar models, views e templates, além de cadastrar dados nos modelos definidos. As informações exibidas na interface agora serão carregadas diretamente do banco de dados, e não mais de dados fictícios definidos nas views. Também incluiremos no projeto o framework Bootstrap, para melhorar a visualização das páginas, e a biblioteca FontAwesome, para adicionar ícones. Por fim, veremos algumas configurações adicionais do Django, como, por exemplo, o tratamento da página de erro 404.
 
 A animação abaixo mostra de forma visual o resultado esperado nesta aula.
 
