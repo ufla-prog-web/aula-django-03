@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+    Portal Biblioteca - Livros
+{% endblock %}
+
+{% block conteudo %}
+    <div class="mycard">
+        <h1>Livros</h1>
+        <ul>
+            {% for l in livros %}
+            <li>{{ l.nome }} | {{ l.autor }} | {{ l.ano }} </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

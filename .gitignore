@@ -160,5 +160,6 @@ cython_debug/
 #.idea/
 
 code2/
+code3/
 
 TODO.md
