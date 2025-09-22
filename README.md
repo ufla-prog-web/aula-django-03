@@ -518,7 +518,7 @@ O modelo Livro está faltando, como deveria estar. Você tem que informar ao Dja
 
 Para incluir o modelo Livro na interface administrativa, temos que dizer ao Django que este modelo deve estar visível na interface administrativa. Isso é feito em um arquivo chamado `admin.py` que está localizado na pasta do seu aplicativo.
 
-Abra o arquivo `myapp/admin.py`:
+Abra o arquivo `biblioteca/admin.py`:
 
 ```python
 from django.contrib import admin
