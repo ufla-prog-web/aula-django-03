@@ -106,7 +106,7 @@ def tccs(request):
     template = loader.get_template('tccs.html')
     return HttpResponse(template.render(context, request))
 
-def tcc_detalhes(request, id):
+def tcc_detalhes(request, id): 
     tccs = [
         {
             "id": 1,
