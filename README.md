@@ -19,7 +19,7 @@
 * [Fundamentos Teóricos](#fundamentos-teóricos)
 * [Objetivo da Aula](#objetivo-da-aula)
 * [Desenvolvimento do Projeto](#desenvolvimento-do-projeto)
-* [Créditos e Referências](#créditos-e-referências)
+* [Referências e Materiais de Apoio](#referências-e-materiais-de-apoio)
 
 ## Introdução
 
@@ -68,20 +68,25 @@ A seguir estão listados os principais recursos empregados no desenvolvimento de
   * [Link do site do chart.js](https://www.chartjs.org/)
 * FontAwesome - Biblioteca CSS para ícones
   * [Link do site do Fontawesome](https://fontawesome.com/)
-  * [Link da documentação Fontawesome](https://docs.fontawesome.com/web/setup/get-started) 
-  * [Link do curso da W3Schools](https://www.w3schools.com/icons/fontawesome5_intro.asp).
-* WhiteNoise - Biblioteca Python para servir arquivos estáticos
-  * [Link do site do Whitenoise](https://whitenoise.readthedocs.io/)
+  * [Link da documentação Fontawesome](https://docs.fontawesome.com/web/setup/get-started)
+  * [Link do curso da W3Schools](https://www.w3schools.com/icons/fontawesome5_intro.asp)
 
 ### Ferramentas
 
-* Visual Studio Code - Ambiente de desenvolvimento integrado - [link](https://code.visualstudio.com/)
-* Git - Sistema de controle de versão - [link](https://git-scm.com/)
-* Github - Plataforma de hospedagem e colaboração em projetos de software - [link](https://github.com/)
-* Pip - Gerenciador de pacotes do Python - [link](https://pypi.org/project/pip/)
-* Venv - Ambiente virtual do Python - [link](https://docs.python.org/pt-br/3/library/venv.html)
-* SQLite Online - SGBD - [link](https://sqliteonline.com/)
-* DB Browser for SQLite - SGBD - [link](https://sqlitebrowser.org/)
+* Visual Studio Code - Ambiente de Desenvolvimento Integrado
+  * [Link site Visual Studio](https://code.visualstudio.com/)
+* Git - Sistema de controle de versão
+  * [Link site do Git](https://git-scm.com/)
+* Github - Plataforma de hospedagem e colaboração em projetos de software
+  * [Link site do Github](https://github.com/)
+* Pip - Gerenciador de pacotes do Python
+  * [Link site do Pip](https://pypi.org/project/pip/)
+* Venv - Ambiente virtual do Python
+  * [Link site do Venv](https://docs.python.org/pt-br/3/library/venv.html)
+* SQLite Online - SGBD
+  * [Link site SQLite Online](https://sqliteonline.com/)
+* DB Browser for SQLite - SGBD
+  * [Link site SQLite Browser](https://sqlitebrowser.org/)
 
 ## Fundamentos Teóricos
 
@@ -101,7 +106,7 @@ A seguir estão destacados alguns dos principais fundamentos teóricos para ente
 
 **5. Segurança embutida:** O Django se preocupa com a segurança, oferecendo proteção contra ataques comuns como SQL *Injection*, *Cross-site Scripting* (XSS), *Cross-site Request Forgery* (CSRF), e *Clickjacking*.
 
-**6. Escalabilidade:** Django é altamente escalável, podendo lidar com grandes volumes de tráfego, como em sites populares que utilizam o framework (por exemplo, Instagram e Pinterest).
+**6. Escalabilidade:** Django é altamente escalável, podendo lidar com grandes volumes de tráfego, como em sites populares que utilizam o framework (por exemplo, Instagram, Pinterest, Spotify, Coursera e Dropbox).
 
 **7. Comunidade ativa e documentação:** Django conta com uma ampla comunidade de desenvolvedores e uma documentação completa e detalhada, facilitando a resolução de problemas e o aprendizado.
 
@@ -175,11 +180,7 @@ No modelo MVT do Django, as requisições seguem um fluxo bem definido, onde cad
 
 * **Resposta (HTTP Response)**: Depois que o Template é renderizado, a View retorna uma resposta HTTP (normalmente uma página HTML ou dados JSON em APIs) ao navegador ou cliente. Essa resposta contém o conteúdo processado e visualizado pelo usuário.
 
-A figura abaixo detalha o fluxo descrito acima.
-
-![Arquitetura MVT - Requisição](./docs/mvt-2.png)
-
-A figura abaixo detalha ainda mais a arquitetura MVT e as tecnologias envolvidas.
+A figura abaixo detalha o fluxo de comunicação, a arquitetura MVT e as tecnologias envolvidas.
 
 ![Arquitetura MVT - Detalhes](./docs/mvt-3.png)
 
@@ -199,7 +200,7 @@ Fonte: [https://medium.com/@mochammadagusyahya](https://medium.com/@mochammadagu
 
 <a href="#índice"><img align="right" width="15" height="15" src="./docs/up-arrow.png" alt="Voltar para topo"></a>
 
-O objetivo desta aula é dar continuidade à construção do projeto Portal da Biblioteca utilizando o framework Python Django. Aprenderemos a criar models, views e templates, além de cadastrar dados nos modelos definidos. As informações exibidas na interface agora serão carregadas diretamente do banco de dados, e não mais de dados fictícios definidos nas views. Também incluiremos no projeto o framework Bootstrap, para melhorar a visualização das páginas, e a biblioteca FontAwesome, para adicionar ícones. Por fim, veremos algumas configurações adicionais do Django, como, por exemplo, o tratamento da página de erro 404.
+O objetivo desta aula é dar continuidade à construção do projeto Portal da Biblioteca utilizando o framework Python Django. Aprenderemos a criar models, views e templates, além de cadastrar dados nos modelos definidos. As informações exibidas na interface agora serão carregadas diretamente do banco de dados, e não mais de dados fictícios definidos nas views. Também incluiremos no projeto o framework Bootstrap, para melhorar a visualização das páginas, e a biblioteca FontAwesome, para adicionar ícones. Por fim, veremos algumas configurações adicionais do Django.
 
 A animação abaixo mostra de forma visual o resultado esperado nesta aula.
 
@@ -252,12 +253,6 @@ Ative o ambiente virtual no seu computador utilizando o comando:
 
 ```bash
 source venv/bin/activate
-```
-
-Para sair do ambiente virtual:
-
-```bash
-deactivate
 ```
 
 ### Fluxo de Trabalho no Django
@@ -318,7 +313,7 @@ python3 manage.py collectstatic
 Uma saída semelhante a esta deverá ser exibida:
 
 ```bash
-130 static files copied to '/media/jesimar/Workspace/Work3/1-Github/2-ufla-prog-web/aula-django-03/portal_biblioteca3/productionfiles'.
+131 static files copied to '/.../aula-django-03/code/staticfiles'.
 ```
 
 Inicie a execução do projeto Django:
@@ -453,7 +448,7 @@ Você acaba de aprender como criar uma tabela no BD, como inserir registros ness
 
 ### Acessar o Ambiente Administrativo
 
-O Django Admin é uma das ferramentas mais poderosas do framework. Trata-se de uma interface gráfica CRUD (Create, Read, Update, Delete), que permite criar, visualizar, atualizar e excluir registros de todos os modelos do seu projeto de forma prática.
+O Django Admin é uma das ferramentas mais poderosas do framework. Trata-se de uma interface gráfica CRUD (*Create*, *Read*, *Update*, *Delete*), que permite criar, visualizar, atualizar e excluir registros de todos os modelos do seu projeto de forma prática.
 
 Para acessar a interface do painel administrativo, inicie o servidor de desenvolvimento com o comando:
 
@@ -680,7 +675,6 @@ Running migrations:
   Applying biblioteca.0002_tcc... OK
 ```
 
-
 Para que o modelo TCC fique visível no Django Admin, precisamos registrá-lo. Assim, no arquivo `biblioteca/admin.py`, adicione o seguinte código:
 
 ```python
@@ -794,7 +788,7 @@ Para incorporar o Bootstrap no nosso projeto primeiro, atualize o arquivo `bibli
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block titulo %}{% endblock %}</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="{% static 'mystyles.css' %}">
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
     </head>
     <body>
         <header>
@@ -941,7 +935,7 @@ Altere o código do arquivo `biblioteca/templates/principal.html` para o código
         <p>Explore nosso acervo de Livros e TCCs, veja seus dashboards e entre na sua conta para mais funcionalidades.</p>
         <br>
         <center>
-            <img src="{% static 'logo-portal.png' %}" alt="logo-portal" width="400" height="300">
+            <img src="{% static 'logo-portal.png' %}" alt="Logo do portal" width="400" height="300">
         </center>
     </main>
 {% endblock %}
@@ -971,9 +965,6 @@ Altere o código do arquivo `biblioteca/templates/livros.html` para o código ab
             </div>
             <br>
         {% endfor %}
-        <br>
-        <br>
-        <br>
     </main>
 {% endblock %}
 ```
@@ -1002,9 +993,6 @@ Altere o código do arquivo `biblioteca/templates/tccs.html` para o código abai
             </div>
             <br>
         {% endfor %}
-        <br>
-        <br>
-        <br>
     </main>
 {% endblock %}
 ```
@@ -1080,39 +1068,49 @@ Altere o código do arquivo `biblioteca/templates/dashboard.html` para o código
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="{% static 'myscripts.js' %}"></script>
+    <script src="{% static 'script.js' %}"></script>
 {% endblock %}
 ```
 
-Altere o código do arquivo `staticfiles/mystyles.css` para o código abaixo:
+Altere o código do arquivo `static/styles.css` para o código abaixo:
 
 ```css
 body {
-  font-family: Arial, sans-serif;
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 h1 {
-  color: #343a40;
+    color: #343a40;
 }
 
 header {
-  background-color: #4D70EF;
+    background-color: #4D70EF;
+}
+
+main {
+    flex: 1;
 }
 
 footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background-color: #4D70EF;
+    width: 100%;
+    background-color: #4D70EF;
+    margin-top: auto;
+}
+
+.card {
+    transition: transform 0.3s ease;
 }
 
 .card:hover {
-  transform: scale(1.02);
+    transform: scale(1.02);
 }
 
 .card-title-obra {
-  background-color: #375BDC;
-  color: white;
+    background-color: #375BDC;
+    color: white;
 }
 ```
 
@@ -1148,7 +1146,7 @@ Para incorporar o FontAwesome no nosso sistema primeiro, atualize o arquivo `bib
         <title>{% block titulo %}{% endblock %}</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-        <link rel="stylesheet" href="{% static 'mystyles.css' %}">
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
     </head>
     <body>
         <header>            
@@ -1215,146 +1213,6 @@ Reinicie o servidor:
 python3 manage.py runserver
 ```
 
-### Configurar o Projeto em Português
-
-Repare que todo o ambiente administrativo do Django está em inglês, vamos agora, alterar isso para português.
-
-Edite o arquivo `portal_biblioteca/settings.py` com a seguinte alteração:
-
-```python
-...
-LANGUAGE_CODE = 'pt-BR'
-...
-```
-
-Acesse a URL: [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/) e analise o resultado.
-
-### Personalizar o Modelo de Página 404
-
-Quando o usuário tenta acessar uma página que não existe, o Django retorna automaticamente um erro 404 (*Not Found*). Por padrão, esse erro é exibido por meio de uma visualização interna do framework, mas podemos personalizar essa página para oferecer uma melhor experiência ao usuário.
-
-Para verificar como o Django trata o erro, acesse uma URL inexistente no navegador, por exemplo:
-
-Acesse a URL [http://127.0.0.1:8000/blabla](http://127.0.0.1:8000/blabla).
-
-Será obtido o seguinte resultado:
-
-![Erro 404-1](./docs/erro404-1.png)
-
-Isso ocorreu, pois a variável `DEBUG` está definida como `True` nas suas configurações no arquivo `portal_biblioteca/settings.py`.
-
-No entanto, a forma esperada de saída de erro, quando o sistema estiver em produção, é a exibida abaixo:
-
-![Erro 404-2](./docs/erro404-2.png)
-
-Para obter uma saída semelhante a segunda forma (correta), você deve definir a variável `DEBUG` como `False`. Assim, você será direcionado para o modelo Django 404 integrado. Isso é feito no arquivo `portal_biblioteca/settings.py`, onde você também deve especificar o nome do host (`ALLOWED_HOSTS`) de onde seu projeto é executado:
-
-```python
-...
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-
-ALLOWED_HOSTS = ['*']
-...
-```
-
-**Importante**: Quando `DEBUG = False`, o Django exige que você especifique os hosts nos quais permitirá que este projeto Django seja executado.
-
-Quando o sistema estiver em produção, isso deve ser substituído por um nome de domínio adequado, semelhante abaixo:
-
-```python
-ALLOWED_HOSTS = ['yourdomain.com']
-```
-
-Mas, como ainda estamos em desenvolvimento, então podemos colocar qualquer domínio como abaixo:
-
-```python
-ALLOWED_HOSTS = ['*']
-```
-
-Escolhemos `*`, o que significa que qualquer endereço tem permissão para hospedar este site. Isso deve ser alterado para um nome de domínio real quando você implantar seu projeto em um servidor público.
-
-O Django procurará um arquivo chamado `404.html` na pasta `biblioteca/templates` e o exibirá quando houver um erro 404. Se esse arquivo não existir, o Django mostrará o "*Not Found*" que você viu no exemplo acima.
-
-Para personalizar esta mensagem, crie o arquivo `biblioteca/templates/404.html` com o seguinte conteúdo:
-
-```html
-{% extends "base.html" %}
-
-{% load static %}
-
-{% block titulo %}
-    Portal Biblioteca - Erro 404
-{% endblock %}
-
-{% block conteudo %}
-    <main class="container mt-5">
-        <h1>Portal Biblioteca</h1>
-        <h4>Página não encontrada</h4>
-        <p>Não existe uma página para a URL solicitada.</p>
-    </main>
-{% endblock %}
-```
-
-Reinicie o servidor:
-
-```bash
-python3 manage.py runserver
-```
-
-Acesse a URL inexistente: [http://127.0.0.1:8000/blabla](http://127.0.0.1:8000/blabla) e você obterá o modelo 404 personalizado como abaixo:
-
-![Erro 404-4](./docs/erro404-4.png)
-
-No entanto, esse modelo deveria aparecer como abaixo. Precisaremos incluir uma biblioteca externa para que o Django consiga servir arquivos estáticos.
-
-![Erro 404-3](./docs/erro404-3.png)
-
-### Biblioteca para Servir Arquivos Estáticos
-
-Devido a modificação anterior `DEBUG = False`, o Django passou a não mais servir arquivos estáticos, pelo menos não em produção. Para resolver isso, teremos que usar uma biblioteca de terceiros. Existem muitas alternativas, mostraremos como usar uma biblioteca Python chamada `WhiteNoise`.
-
-Para instalar o WhiteNoise em seu ambiente virtual, digite o comando:
-
-```bash
-python3 -m pip install whitenoise
-```
-
-Para que o Django saiba que você deseja executar o WhitNoise, você precisa especificá-lo na lista `MIDDLEWARE` do arquivo `portal_biblioteca/settings.py`:
-
-```python
-...
-MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',               # linha adicionada
-]
-...
-```
-
-Há mais uma ação que você precisa executar antes de poder servir o arquivo estático. Você precisa coletar todos os arquivos estáticos utilizando o comando:
-
-```bash
-python3 manage.py collectstatic
-```
-
-EReinicie o servidor:
-
-```bash
-python3 manage.py runserver
-```
-
-Em modo de produção, o WhiteNoise será responsável por servir os arquivos estáticos automaticamente. Acesse um arquivo estático (por exemplo, [http://127.0.0.1:8000/static/mystyles.css](http://127.0.0.1:8000/static/mystyles.css)) para confirmar que o WhiteNoise está servindo o conteúdo corretamente.
-
-Acesse uma URL inexistente: [http://127.0.0.1:8000/blabla](http://127.0.0.1:8000/blabla) e você obterá o modelo 404 personalizado como abaixo.
-
-![Erro 404-3](./docs/erro404-3.png)
-
 ### Carregar Dados no Dashboard Através do BD
 
 Agora, iremos atualizar o nosso código para que o dashboard exibido contenha gráficos com dados vindo do BD e não gráficos com dados fixados em código.
@@ -1377,19 +1235,19 @@ Em seguida, precisamos atualizar o arquivo `biblioteca/templates/dashboard.html`
 
 ```html
 ...
-    <script> <!-- Incluí esse script -->
-        <!-- Cria variáveis globais para vindas do template para serem acessadas no JS externo "myscripts.js". -->
+    <!-- Incluir esse script que cria variáveis globais vindas do template para serem acessadas no JS externo "script.js". -->
+    <script>
         const vlabels = {{ labels|safe }};
         const vdata = {{ data|safe }};
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="{% static 'myscripts.js' %}"></script>
+    <script src="{% static 'script.js' %}"></script>
 ...
 ```
 
 **Explicação**: quando o JavaScript está em um arquivo separado, você não pode usar diretamente as tags de template do Django (`{{ }}`) dentro do arquivo. Uma solução é definir as variáveis no próprio HTML e, em seguida, acessá-las no arquivo JavaScript externo. No seu template HTML, defina as variáveis de dados (`vlabels` e `vdata`) dentro de um bloco `<script>` para que fiquem disponíveis globalmente. O `| safe` é um filtro do Django usado para garantir que os dados sejam renderizados sem qualquer escape adicional de HTML. Esse filtro é importante quando você está passando dados JSON ou arrays para JavaScript, pois ele impede que o Django faça a escapada automática (substituindo, por exemplo, `"` por `&quot;`). Sem o filtro `|safe`, o Django escaparia caracteres especiais nos dados, resultando em valores incorretos ou erro de sintaxe.
 
-Atualize o arquivo `myscripts.js` conforme abaixo:
+Atualize o arquivo `script.js` da pasta `static` conforme abaixo:
 
 ```javascript
 function graficoBarras() {
@@ -1398,19 +1256,19 @@ function graficoBarras() {
     new Chart(ctx, {
         type: 'bar',
         data: {
-        labels: vlabels, // Alterei aqui. Acessa variável global 'labels'
-        datasets: [{
-            label: 'Número de Volumes',
-            data: vdata,  // Alterei aqui. Acessa a variável global 'data'
-            borderWidth: 1
-        }]
+            labels: vlabels, // Alterei aqui. Acessa variável global 'vlabels'
+            datasets: [{
+                label: 'Número de Volumes',
+                data: vdata,  // Alterei aqui. Acessa a variável global 'vdata'
+                borderWidth: 1
+            }]
         },
         options: {
-        scales: {
-            y: {
-                beginAtZero: true
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
             }
-        }
         }
     });
 }          
@@ -1421,20 +1279,20 @@ function graficoPizza(){
     new Chart(ctx, {
         type: 'pie',
         data: {
-        labels: vlabels, // Alterei aqui. Acessa variável global 'labels'
-        datasets: [{
-            label: 'Número de Volumes',
-            data: vdata, // Alterei aqui. Acessa a variável global 'data'
-            backgroundColor: [
-                'rgb(255, 99, 132)',
-                'rgb(54, 162, 235)',
-                'rgb(255, 205, 86)',
-                'rgb(80, 60, 200)',
-                'rgb(255, 100, 86)',
-                'rgb(54, 255, 150)'
-            ],
-            hoverOffset: 8
-        }]
+            labels: vlabels, // Alterei aqui. Acessa variável global 'vlabels'
+            datasets: [{
+                label: 'Número de Volumes',
+                data: vdata, // Alterei aqui. Acessa a variável global 'vdata'
+                backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)',
+                    'rgb(255, 205, 86)',
+                    'rgb(80, 60, 200)',
+                    'rgb(255, 100, 86)',
+                    'rgb(54, 255, 150)'
+                ],
+                hoverOffset: 8
+            }]
         }
     });
 }
@@ -1444,7 +1302,7 @@ graficoBarras();
 graficoPizza();
 ```
 
-**Explicação**: no arquivo `myscripts.js`, você pode agora acessar as variáveis `vlabels` e `vdata` diretamente, pois elas foram definidas no escopo global do HTML.
+**Explicação**: no arquivo `script.js`, você pode agora acessar as variáveis `vlabels` e `vdata` diretamente, pois elas foram definidas no escopo global do HTML.
 
 Em seguida, execute comando abaixo para fazer a cópia dos arquivos estáticos alterados:
 
@@ -1485,6 +1343,20 @@ python3 manage.py runserver
 
 Avalie os gráficos mostrados. Inclua ou apague livros ou TCCs e veja a mudança refletida nos gráficos.
 
+### Configurar o Projeto em Português
+
+Repare que todo o ambiente administrativo do Django está em inglês, vamos agora, alterar isso para português.
+
+Edite o arquivo `portal_biblioteca/settings.py` com a seguinte alteração:
+
+```python
+...
+LANGUAGE_CODE = 'pt-BR'
+...
+```
+
+Acesse a URL: [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/) e analise o resultado.
+
 ### Informações Adicionais sobre BD
 
 Caso queira ver as instruções SQL que foram executadas na migração do BD, basta digitar o comando abaixo, com o número da migração:
@@ -1516,11 +1388,11 @@ SELECT * FROM biblioteca_livro;
 
 **Observação:** repare que o nome físico da tabela segue o padrão `<app>_<modelo>`, por exemplo `biblioteca_livro`.
 
-## Créditos e Referências
+## Referências e Materiais de Apoio
 
 <a href="#índice"><img align="right" width="15" height="15" src="./docs/up-arrow.png" alt="Voltar para topo"></a>
 
-Este tutorial foi inspirado nos seguintes materiais:
+Este tutorial foi baseado nos seguintes materiais:
 
 * [Documentação oficial do Django](https://docs.djangoproject.com/pt-br/5.0/)
 * [Curso de Django da W3Schools](https://www.w3schools.com/django/index.php)
